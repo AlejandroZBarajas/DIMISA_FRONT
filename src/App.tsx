@@ -47,6 +47,11 @@ export default function App() {
             <EnfermeriaCamas />
         </ProtectedRoute>} />
 
+{/*         <Route path="/enfermeria/solicitar" element={
+        <ProtectedRoute allowedRoles={["5"]} userRole={userRol}>
+            <EnfermeriaSolicitud />
+        </ProtectedRoute>} /> */}
+
 
     </Routes>
   )
