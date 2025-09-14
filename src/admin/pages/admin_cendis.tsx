@@ -1,14 +1,14 @@
 import Header from "../../common/header"
 import AdminSubheader from "../components/admin_subheader"
 
-function AdminUsers(){
+function AdminCendis(){
     return(
         <div>
         <Header/>
         <AdminSubheader></AdminSubheader>
 
-        <h2>Gestión de Usuarios</h2>
+        <h2>Gestión de Cendis</h2>
         </div>
     )
 }
-export default AdminUsers
+export default AdminCendis
