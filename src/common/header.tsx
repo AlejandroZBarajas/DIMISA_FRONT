@@ -16,17 +16,17 @@ export default function Header(){
 
     return(
         <div id="header" className="w-full flex flex-row justify-evenly bg-verde1 h-[130px] w-full items-center"> 
-            <div className="w-3/12 items-center justify-evenly">
+            <div className="w-3/12 flex items-center justify-evenly">
                 <img className="pt-2 pb-2" src={logo} alt="" />
             </div>
             <div className="w-6/12 b-2 b-white">
-                <h1 className='text-center text-white font-bold text-xl'>Sistema DIMISA <br/>Dosis, Insumos, Medicamentos, Inventario,<br/>Seguimiento, Administración</h1>
+                <h1 className='text-center text-white font-bold text-3xl'>Sistema DIMISA <br/>Dosis, Insumos, Medicamentos, Inventario,<br/>Seguimiento, Administración</h1>
             </div>
             <div className="w-3/12 flex justify-end">
             {
                 rol!=="" &&(
 
-                    <h4 className='text-white ' onClick={byebye}>Cerrar sesión</h4>
+                    <h4 className='text-white p-4' onClick={byebye}>Cerrar sesión</h4>
                 )
             }
             </div>            
