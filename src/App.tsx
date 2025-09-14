@@ -1,16 +1,10 @@
-
-import './App.css'
-
+import Header from "./common/header"
 function App() {
 
   return (
-    <>
-     
-     
-      <p className="read-the-docs">
-        DIMISA APP
-      </p>
-    </>
+    <div>
+      <Header/>
+    </div>
   )
 }
 
