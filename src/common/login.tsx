@@ -1,31 +1,60 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Header from "./header";
 
 
 export default function Login() {
+  //sessionStorage.setItem("rol", "")
+
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
-  const [contrasena, setContrasena] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
 
   const API_URL = import.meta.env.VITE_API_URL + "login";
 
   const handleLogin = async () => {
+    console.log("al menos el boton jala")
     setError("");
     try {
       const res = await fetch(API_URL, {
         method: "POST",
-        credentials: "include", 
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, contrasena }),
+        body: JSON.stringify({ username, password }),
       });
 
       if (!res.ok) {
         const data = await res.json();
         throw new Error(data.message || "Error al iniciar sesión");
       }
+      const data = await res.json();
 
+      sessionStorage.setItem("rl", data.id_rol)
+
+      switch (data.id_rol){
+        case 1:
+          navigate("/admin/users")
+          break
+        case 2:
+        navigate("/admin/users")
+        break
+        case 3:
+          navigate("/supervision")
+          break
+          case 4:
+          navigate("/admision")
+          break
+        case 5:
+          navigate("/enfermeria/camas")
+          break
+        case 6:
+          navigate("/unidosis/solicitudes")
+          break
+        default:
+        setError("Rol no reconocido");
+        break;
+      }
     } catch (err: unknown) {
       if (err instanceof Error) {
         setError(err.message);
@@ -37,35 +66,32 @@ export default function Login() {
 
   return (
     <div className="flex flex-col h-screen bg-white items-center">
-      <div className="w-full flex flex-col justify-center items-center bg-morado h-1/5">
-        <h1 className="text-4xl font-black text-white mb-4 text-center">
-          Gestión de espacios educativos
-        </h1>
-      </div>
+      <Header></Header>
 
-      <div className="flex flex-1 w-full justify-center items-center">
-        <div className="flex flex-col justify-center bg-gris border-2 border-solid border-morado p-8 rounded-lg shadow-lg max-w-sm text-center min-w-[300px]">
-          <h2 className="text-morado text-3xl font-bold m-2">E-mail</h2>
+      <div className="flex flex-1 w-full justify-center items-center ">
+
+        <div className="flex flex-col justify-center bg-[#002B24]/30 border-2 border-solid border-verde1 p-8 rounded-lg shadow-lg max-w-sm text-center min-w-[300px]">
+          <h2 className="text-verde1 text-3xl font-bold m-2">Nombre de usuario</h2>
           <input
             type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
             className="border-2 border-solid border-morado bg-gris-clarito rounded-lg mb-4 p-2"
           />
 
-          <h2 className="text-3xl text-morado font-bold m-2">Contraseña</h2>
+          <h2 className="text-3xl text-verde1 font-bold m-2">Contraseña</h2>
           <input
             type="password"
-            value={contrasena}
-            onChange={(e) => setContrasena(e.target.value)}
-            className="border-2 border-solid border-morado bg-gris-clarito rounded-lg mb-4 p-2"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="border-2 border-solid b-verde1 bg-gris-clarito rounded-lg mb-4 p-2"
           />
 
           {error && <p className="text-red-600 mb-2">{error}</p>}
 
           <button
             onClick={handleLogin}
-            className="bg-morado text-white text-3xl font-black p-2 rounded-xl hover:bg-morado-dark"
+            className="bg-[#002B24] text-white text-3xl font-black p-2 rounded-xl hover:bg-morado-dark"
           >
             Ingresar
           </button>
