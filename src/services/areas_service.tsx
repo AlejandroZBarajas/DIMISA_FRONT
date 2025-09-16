@@ -4,14 +4,14 @@ const API_URL = import.meta.env.VITE_API_URL+"areas"
 
 export const getAreas = async (): Promise<AreaEntity[]> => {
 
-  const res = await fetch(API_URL,{});
+  const res = await fetch(`${API_URL}`,{});
   if (!res.ok) throw new Error("Error al obtener areas");
   return res.json();
 };
 
-export const createPeriodo = async (area: AreaEntity): Promise<AreaEntity> => {
+export const createArea = async (area: AreaEntity): Promise<AreaEntity> => {
 
-  const res = await fetch(API_URL, {
+  const res = await fetch(`${API_URL}/create`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(area),
@@ -20,23 +20,23 @@ export const createPeriodo = async (area: AreaEntity): Promise<AreaEntity> => {
   return res.json();
 };
 
-export const updatePeriodo = async (id: number, area: AreaEntity): Promise<AreaEntity> => {
+export const updateArea = async (id: number, area: AreaEntity): Promise<AreaEntity> => {
 
   const res = await fetch(`${API_URL}/${id}`, {
-    method: "PUT",
-    credentials: "include", 
+    method: "PUT", 
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(area),
   });
-  if (!res.ok) throw new Error("Error al actualizar periodo");
+  if (!res.ok) throw new Error("Error al actualizar area");
   return res.json();
 };
 
-export const deletePeriodo = async (id: number): Promise<void> => {
+export const deleteArea = async (id: number): Promise<void> => {
 
-  const res = await fetch(`${API_URL}/${id}`, {
+  const res = await fetch(`${API_URL}/delete`, {
     method: "DELETE",
-    credentials: "include", 
+    headers: { "Content-Type": "application/json" },
+    body:JSON.stringify({id_area:id}),
   });
-  if (!res.ok) throw new Error("Error al eliminar periodo");
+  if (!res.ok) throw new Error("Error al eliminar area");
 };
