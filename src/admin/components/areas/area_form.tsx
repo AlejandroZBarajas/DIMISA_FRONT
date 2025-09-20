@@ -19,17 +19,17 @@ export default function AreaForm({ area, onSave, onCancel }: Props) {
 const handleChange = (
   e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
 ) => {
-  const { name, value } = e.target
+  const { name, value, type } = e.target
   setFormData({
     ...formData,
-    [name]: value,
+    [name]: type === "number" ? Number(value) : value,
   })
 }
 
 
 
   const handleSubmit = (e: React.FormEvent) => {
-    console.log(formData)
+    console.log("formData:" +formData)
     e.preventDefault();
     onSave(formData);
   };
@@ -42,7 +42,7 @@ const handleChange = (
 
       <input
         type="text"
-        name="nombre"
+        name="nombre_area"
         placeholder="Nombre del area"
         value={formData.nombre_area}
         onChange={handleChange}

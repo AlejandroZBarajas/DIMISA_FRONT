@@ -10,13 +10,14 @@ export const getAreas = async (): Promise<AreaEntity[]> => {
 };
 
 export const createArea = async (area: AreaEntity): Promise<AreaEntity> => {
+  console.log(area)
 
   const res = await fetch(`${API_URL}/create`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(area),
   });
-  if (!res.ok) throw new Error("Error al crear periodo");
+  if (!res.ok) throw new Error("Error al crear Area (servicio)");
   return res.json();
 };
 
