@@ -1,12 +1,20 @@
 import { useState } from "react";
-import type CendisEntity from "../../../entities/cendis_entity";
 import type AreaEntity from "../../../entities/area_entity";
 
 interface Props {
-  cendis?: CendisEntity | null;
+  cendis?: {
+    id_cendis?: number;
+    cendis_nombre: string;
+  } | null;
   areas: AreaEntity[];
-  onSave: (cendis: CendisEntity & { areas: number[] }) => void;
+  onSave: (payload: CendisPayload) => void;
   onCancel: () => void;
+}
+
+interface CendisPayload {
+  id_cendis?: number;
+  cendis_nombre: string;
+  areas: number[]; // IDs de áreas
 }
 
 interface CendisFormData {
@@ -17,7 +25,7 @@ interface CendisFormData {
 export default function CendisForm({ cendis, areas, onSave, onCancel }: Props) {
   const [formData, setFormData] = useState<CendisFormData>({
     cendis_nombre: cendis?.cendis_nombre || "",
-    selectedAreas: [], // ya no usamos cendis.areas porque no existe
+    selectedAreas: [], // IDs de áreas seleccionadas
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -39,11 +47,12 @@ export default function CendisForm({ cendis, areas, onSave, onCancel }: Props) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSave({
-      id_cendis: cendis?.id_cendis || 0,
+    const payload: CendisPayload = {
+      id_cendis: cendis?.id_cendis,
       cendis_nombre: formData.cendis_nombre,
       areas: formData.selectedAreas,
-    });
+    };
+    onSave(payload);
   };
 
   return (
