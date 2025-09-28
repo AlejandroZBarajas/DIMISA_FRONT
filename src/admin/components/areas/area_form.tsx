@@ -37,7 +37,7 @@ const handleChange = (
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-3">
       <h2 className="text-2xl font-bold text-morado">
-        {area ? "Editar Area" : "Nuev Area"}
+        {area ? "Editar Area" : "Nueva Area"}
       </h2>
 
       <input

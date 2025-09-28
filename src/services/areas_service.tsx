@@ -41,3 +41,10 @@ export const deleteArea = async (id: number): Promise<void> => {
   });
   if (!res.ok) throw new Error("Error al eliminar area");
 };
+
+export const getFreeAreas = async (): Promise<AreaEntity[]> =>{
+
+  const res = await fetch(`${API_URL}/free`,{})
+  if(!res.ok) throw new Error("No se pudieron obtener areas sin vincular a cendis")
+  return res.json()
+}
