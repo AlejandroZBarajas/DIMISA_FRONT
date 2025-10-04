@@ -2,6 +2,23 @@ import type CamaEntity from "../entities/cama_entity";
 
 const API_URL = import.meta.env.VITE_API_URL+"camas/"
 
+export const createCamas = async (data: {
+  id_area: number;
+  cama_1: number;
+  cama_n?: number;
+}): Promise<void> => {
+  const res = await fetch(`${API_URL}range`, { 
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(`Error al crear camas: ${text}`);
+  }
+};
+
 export const getCamasByArea = async (id_area : number): Promise <CamaEntity[]> => {
     const res = await fetch(`${API_URL}by-area`, {
         method: "POST",
@@ -29,5 +46,15 @@ export const disableCama = async (id_cama : number): Promise <void> => {
     body: JSON.stringify({id_cama}),
     })
     if (!res.ok) throw new Error("Error al cargar camas por servicio (servicio)");
+    return;
+}
+
+export const deleteCama = async (id_cama:number): Promise <void> => {
+    const res = await fetch(`${API_URL}delete`,{
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({id_cama}),
+    })
+    if (!res.ok) throw new Error("Error al eliminar cama (service front)");
     return;
 }

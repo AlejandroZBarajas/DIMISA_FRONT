@@ -10,21 +10,16 @@ export default function AreaForm({ area, onSave, onCancel }: Props) {
   const [formData, setFormData] = useState<AreaEntity>(
     area || {
       nombre_area: "",
-      cama_1:0,
-      cama_n:0
+      alias:"",
     }
   );
 
 
-const handleChange = (
-  e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
-) => {
-  const { name, value, type } = e.target
-  setFormData({
-    ...formData,
-    [name]: type === "number" ? Number(value) : value,
-  })
-}
+const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const { name, value } = e.target;
+  setFormData(prev => ({ ...prev, [name]: value }));
+};
+
 
 
 
@@ -40,6 +35,7 @@ const handleChange = (
         {area ? "Editar Area" : "Nueva Area"}
       </h2>
 
+      <label className="text-sm font-semibold">Nombre del área</label>
       <input
         type="text"
         name="nombre_area"
@@ -50,25 +46,16 @@ const handleChange = (
         required
       />
 
+      <label className="text-sm font-semibold">Alias del área</label>
       <input
-        type="number"
-        name="cama_1"
-        placeholder="Número de la primer cama"
-        value={formData.cama_1}
+        type="text"
+        name="alias"
+        placeholder="Alias del area"
+        value={formData.alias}
         onChange={handleChange}
         className="border p-2 rounded border-verde1"
         required
-      />
-
-       <input
-        type="number"
-        name="cama_n"
-        placeholder="Número de la ultima cama"
-        value={formData.cama_n}
-        onChange={handleChange}
-        className="border p-2 rounded border-verde1"
-        required
-      />
+      /> 
 
       <div className="flex gap-2">
         <button type="submit" className="flex-1 bg-azul3 text-white p-2 rounded">
