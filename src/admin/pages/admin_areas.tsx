@@ -29,7 +29,7 @@ function AdminAreas(){
     const handleSave = async (nuevo: AreaEntity) => {
         try{
             if(areaEditando){
-                const actualizado = await updateArea(areaEditando.id_area!, nuevo)
+                const actualizado = await updateArea(nuevo)
                 setAreas(
                     areas.map((a) =>
                     a.id_area === areaEditando.id_area ? actualizado : a

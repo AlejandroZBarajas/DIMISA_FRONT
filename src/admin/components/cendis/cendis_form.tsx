@@ -1,21 +1,18 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type AreaEntity from "../../../entities/area_entity";
-
+import type CendisPayload from "../../../entities/cendis_payload";
 interface Props {
   cendis?: {
     id_cendis?: number;
     cendis_nombre: string;
+    areas: AreaEntity[]
   } | null;
   areas: AreaEntity[];
   onSave: (payload: CendisPayload) => void;
   onCancel: () => void;
 }
 
-interface CendisPayload {
-  id_cendis?: number;
-  cendis_nombre: string;
-  areas: number[]; // IDs de áreas
-}
+
 
 interface CendisFormData {
   cendis_nombre: string;
@@ -27,7 +24,8 @@ export default function CendisForm({ cendis, areas, onSave, onCancel }: Props) {
     cendis_nombre: cendis?.cendis_nombre || "",
     selectedAreas: [], // IDs de áreas seleccionadas
   });
-
+  
+  
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData({
@@ -48,13 +46,22 @@ export default function CendisForm({ cendis, areas, onSave, onCancel }: Props) {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const payload: CendisPayload = {
-      id_cendis: cendis?.id_cendis,
+      //id_cendis: cendis?.id_cendis,
       cendis_nombre: formData.cendis_nombre,
       areas: formData.selectedAreas,
     };
     onSave(payload);
   };
-
+  
+    useEffect(() => {
+    if (cendis?.areas) {
+      setFormData({
+        cendis_nombre: cendis.cendis_nombre,
+        selectedAreas: cendis.areas.map((a) => a.id_area!),
+      });
+    }
+  }, [cendis]);
+  
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-3">
       <h2>{cendis ? "Editar Cendis" : "Nuevo Cendis"}</h2>

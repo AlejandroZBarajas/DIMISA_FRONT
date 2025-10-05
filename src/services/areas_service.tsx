@@ -21,14 +21,14 @@ export const createArea = async (area: AreaEntity): Promise<AreaEntity> => {
   return res.json();
 };
 
-export const updateArea = async (id: number, area: AreaEntity): Promise<AreaEntity> => {
+export const updateArea = async (area: AreaEntity): Promise<AreaEntity> => {
 
-  const res = await fetch(`${API_URL}/${id}`, {
+  const res = await fetch(`${API_URL}/update`, {
     method: "PUT", 
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(area),
   });
-  if (!res.ok) throw new Error("Error al actualizar area");
+  if (!res.ok) throw new Error("Error en el servicio del front al actualizar area");
   return res.json();
 };
 

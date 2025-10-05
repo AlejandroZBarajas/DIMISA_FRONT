@@ -12,13 +12,6 @@ export default function CendisCard({ cendis, onDelete, onEdit }: Props) {
     <div className="w-fit border-verde1 border-2 rounded-lg shadow-md p-2 flex flex-col justify-around">
       <h2 className="text-xl font-bold text-morado">{cendis.cendis_nombre}</h2>
 
-      <h3 className="mt-2 font-semibold">Áreas asociadas:</h3>
-      <ul className="ml-2 list-disc">
-        {cendis.areas.map((area) => (
-          <li key={area.id_area}>{area.nombre_area}</li>
-        ))}
-      </ul>
-
       <div className="flex gap-2 mt-3">
         <button
           onClick={() => onEdit(cendis)}
