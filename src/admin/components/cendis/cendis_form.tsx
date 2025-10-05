@@ -46,7 +46,7 @@ export default function CendisForm({ cendis, areas, onSave, onCancel }: Props) {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const payload: CendisPayload = {
-      //id_cendis: cendis?.id_cendis,
+      id_cendis: cendis?.id_cendis,
       cendis_nombre: formData.cendis_nombre,
       areas: formData.selectedAreas,
     };
