@@ -65,8 +65,22 @@ function AdminAreas(){
         <div className="relative">
             <Header/>
             <AdminSubheader></AdminSubheader>
-            <h2 className="text-verde1 font-black text-4xl">Areas</h2>
             
+            <div>
+                <h2 className="text-verde1 font-black text-4xl ">Areas</h2>
+                
+            
+                <button
+                    onClick={() => {
+                    setAreaEditando(null);
+                    setModalAbierto(true);
+                    }}
+                    className="fixed bottom-6 right-6 bg-blue-600 hover:bg-blue-700 text-white p-4 rounded-full shadow-lg"
+                >
+                    <MdAdd size={28} />
+                </button>
+            </div>
+
                 <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
                     {areas.map((a) => (
                     <AreaCard
@@ -77,16 +91,6 @@ function AdminAreas(){
                     />
                     ))}
                 </div>
-
-                <button
-                    onClick={() => {
-                    setAreaEditando(null);
-                    setModalAbierto(true);
-                    }}
-                    className="fixed bottom-6 right-6 bg-blue-600 hover:bg-blue-700 text-white p-4 rounded-full shadow-lg"
-                >
-                    <MdAdd size={28} />
-                </button>
 
                 {modalAbierto && (
                     <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex justify-center items-center z-50">

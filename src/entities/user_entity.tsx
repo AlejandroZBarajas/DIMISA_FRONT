@@ -6,5 +6,6 @@ export default interface UserEntity{
     username: string
     password: string
     id_rol: number
-
+    id_cendis?:number
+    id_area?:number
 }

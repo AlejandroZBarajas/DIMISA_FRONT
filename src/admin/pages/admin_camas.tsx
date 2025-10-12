@@ -7,6 +7,7 @@ import type CamaEntity from "../../entities/cama_entity";
 import type AreaEntity from "../../entities/area_entity";
 import { getCamasByArea, enableCama, disableCama, deleteCama, createCamas } from "../../services/camas_service";
 import { getAreas } from "../../services/areas_service";
+import { MdAdd } from "react-icons/md";
 
 function AdminCamas() {
   const [areas, setAreas] = useState<AreaEntity[]>([]);
@@ -83,9 +84,9 @@ function AdminCamas() {
                 setSelectedArea({ id: area.id_area!, name: area.nombre_area });
                 setFormOpen(true);
               }}
-              className="bg-verde1 text-white p-2 rounded hover:bg-verde2 transition-colors"
+              className="bg-azul3 text-white p-2 rounded-full hover:bg-azul4 transition-colors items-center"
             >
-              Crear camas
+              <MdAdd size={28}/>
             </button>
           </div>
 
