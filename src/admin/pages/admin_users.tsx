@@ -4,25 +4,36 @@ import AdminSubheader from "../components/admin_subheader";
 import UserCard from "../components/users/user_card";
 import UserForm from "../components/users/user_form";
 import type UserEntity from "../../entities/user_entity";
-import { getUsers, createUser } from "../../services/users_service";
+import { getUsers, createUser, deleteUser } from "../../services/users_service";
 import { MdAdd } from "react-icons/md";
 
 export default function AdminUsers() {
   const [users, setUsers] = useState<UserEntity[]>([]);
   const [showModal, setShowModal] = useState(false);
 
-  // Cargar todos los usuarios al montar el componente
   useEffect(() => {
     getUsers().then(setUsers);
   }, []);
 
-  // Manejar la creación de usuario
   const handleCreateUser = async (user: UserEntity) => {
     await createUser(user);
     const updated = await getUsers();
     setUsers(updated);
     setShowModal(false);
   };
+
+    const handleDeleteUser = async (id_usuario: number) => {
+      const confirmar = window.confirm("¿Seguro que deseas eliminar este usuario?");
+      if (!confirmar) return;
+  
+      try {
+        await deleteUser(id_usuario);
+        await getUsers();
+      } catch (error) {
+        console.error("Error al eliminar usuario:", error);
+        alert("Hubo un error al eliminar el usuario.");
+      }
+    };
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -45,7 +56,11 @@ export default function AdminUsers() {
         {/* Grid de usuarios */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {users.map((user) => (
-            <UserCard key={user.id_usuario} user={user} />
+            <UserCard 
+            key={user.id_usuario} 
+            user={user} 
+            onDelete={handleDeleteUser}
+            />
           ))}
         </div>
       </div>

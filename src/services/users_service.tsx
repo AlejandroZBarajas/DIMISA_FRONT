@@ -15,9 +15,9 @@ export async function getUsers(): Promise<UserEntity[]> {
   return await res.json();
 }
 
-export async function createUser(user: UserEntity): Promise<UserEntity> {
+export async function createUser(user: UserEntity): Promise< number > {
   
-  const res = await fetch(`${API_URL}/create`, {
+  const res = await fetch(`${API_URL}create`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -44,7 +44,7 @@ export async function updateUser(user: UserEntity): Promise<UserEntity> {
 
 export async function deleteUser(id_usuario: number): Promise<void> {
   const res = await fetch(`${API_URL}/delete`, {
-    method: "POST",
+    method: "DELETE",
     headers: {
       "Content-Type": "application/json",
     },

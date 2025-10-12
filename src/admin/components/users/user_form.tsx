@@ -42,6 +42,9 @@ export default function UserForm({ initialData, onSubmit }: Props) {
     fetchData();
   }, []);
 
+
+
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
@@ -51,6 +54,7 @@ export default function UserForm({ initialData, onSubmit }: Props) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
     console.log(formData)
 
     if (!initialData && formData.password !== confirmPassword) {
@@ -59,8 +63,27 @@ export default function UserForm({ initialData, onSubmit }: Props) {
     }
 
     setPasswordError("");
-    onSubmit(formData);
-  };
+    const idRol = Number(formData.id_rol);
+    const idArea = Number(formData.id_area);
+    const idCendis = Number(formData.id_cendis);
+
+    const formattedData: UserEntity = {
+      ...formData,
+      id_rol: idRol,
+    };
+
+    // Solo agregamos si son números válidos (> 0)
+    if (idArea > 0) {
+      formattedData.id_area = idArea;
+    }
+
+    if (idCendis > 0) {
+      formattedData.id_cendis = idCendis;
+    }
+
+  console.log("Datos enviados al backend:", formattedData);
+  onSubmit(formattedData);
+};
 
   const renderRoleFields = () => {
     switch (Number(formData.id_rol)) {

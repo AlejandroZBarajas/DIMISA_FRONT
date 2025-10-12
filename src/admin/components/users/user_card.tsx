@@ -1,4 +1,3 @@
-// src/components/users/UserCard.tsx
 import type UserEntity from "../../../entities/user_entity";
 
 interface Props {
@@ -8,7 +7,7 @@ interface Props {
 }
 
 export default function UserCard({ user, onEdit, onDelete }: Props) {
-  // Función auxiliar para mostrar el nombre del rol
+
   const getRolName = (id_rol: number): string => {
     switch (id_rol) {
       case 2:
