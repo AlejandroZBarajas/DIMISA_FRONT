@@ -30,8 +30,8 @@ export async function createUser(user: UserEntity): Promise< number > {
 }
 
 export async function updateUser(user: UserEntity): Promise<UserEntity> {
-  const res = await fetch(`${API_URL}/update`, {
-    method: "POST",
+  const res = await fetch(`${API_URL}update`, {
+    method: "PUT",
     headers: {
       "Content-Type": "application/json",
     },

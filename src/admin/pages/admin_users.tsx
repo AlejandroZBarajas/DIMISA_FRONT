@@ -4,23 +4,25 @@ import AdminSubheader from "../components/admin_subheader";
 import UserCard from "../components/users/user_card";
 import UserForm from "../components/users/user_form";
 import type UserEntity from "../../entities/user_entity";
-import { getUsers, createUser, deleteUser } from "../../services/users_service";
+import { getUsers, createUser, deleteUser, updateUser } from "../../services/users_service";
 import { MdAdd } from "react-icons/md";
 
 export default function AdminUsers() {
   const [users, setUsers] = useState<UserEntity[]>([]);
   const [showModal, setShowModal] = useState(false);
+  const [editingUser, setEditingUser] = useState<UserEntity | null>(null);
+
 
   useEffect(() => {
     getUsers().then(setUsers);
   }, []);
 
-  const handleCreateUser = async (user: UserEntity) => {
+/*   const handleCreateUser = async (user: UserEntity) => {
     await createUser(user);
     const updated = await getUsers();
     setUsers(updated);
     setShowModal(false);
-  };
+  }; */
 
     const handleDeleteUser = async (id_usuario: number) => {
       const confirmar = window.confirm("¿Seguro que deseas eliminar este usuario?");
@@ -35,6 +37,11 @@ export default function AdminUsers() {
       }
     };
 
+  const handleEditUser = async (user: UserEntity) => {
+    setEditingUser(user); // Selecciona el usuario a editar
+    setShowModal(true); 
+  }
+
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
@@ -46,7 +53,11 @@ export default function AdminUsers() {
             Gestión de Usuarios
           </h2>
           <button
-            onClick={() => setShowModal(true)}
+            onClick={() => {
+              setEditingUser(null); // limpiar cualquier edición anterior
+              setShowModal(true);
+            }}
+
             className="bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2 rounded-lg"
           >
                 <MdAdd size={28} />
@@ -60,6 +71,7 @@ export default function AdminUsers() {
             key={user.id_usuario} 
             user={user} 
             onDelete={handleDeleteUser}
+            onEdit={handleEditUser}
             />
           ))}
         </div>
@@ -76,7 +88,28 @@ export default function AdminUsers() {
               &times;
             </button>
 
-            <UserForm onSubmit={handleCreateUser} />
+      <UserForm
+        initialData={editingUser || undefined}
+        onSubmit={async (user) => {
+          try {
+            if (editingUser) {
+              await updateUser(user);
+              setEditingUser(null); 
+            } else {
+              await createUser(user);
+            }
+
+            // Refrescar la lista de usuarios
+            const updated = await getUsers();
+            setUsers(updated);
+            setShowModal(false);
+          } catch (error) {
+            console.error("Error al guardar usuario:", error);
+            alert("Hubo un error al guardar el usuario.");
+          }
+        }}
+      />
+
           </div>
         </div>
       )}

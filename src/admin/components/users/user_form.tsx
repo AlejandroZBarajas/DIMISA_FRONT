@@ -42,9 +42,6 @@ export default function UserForm({ initialData, onSubmit }: Props) {
     fetchData();
   }, []);
 
-
-
-
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
@@ -72,7 +69,6 @@ export default function UserForm({ initialData, onSubmit }: Props) {
       id_rol: idRol,
     };
 
-    // Solo agregamos si son números válidos (> 0)
     if (idArea > 0) {
       formattedData.id_area = idArea;
     }
