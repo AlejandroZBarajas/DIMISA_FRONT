@@ -20,7 +20,7 @@ export const createCamas = async (data: {
 };
 
 export const getCamasByArea = async (id_area : number): Promise <CamaEntity[]> => {
-    const res = await fetch(`${API_URL}by-area`, {
+    const res = await fetch(`${API_URL}ar`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
     body: JSON.stringify({id_area}),
@@ -57,4 +57,14 @@ export const deleteCama = async (id_cama:number): Promise <void> => {
     })
     if (!res.ok) throw new Error("Error al eliminar cama (service front)");
     return;
+}
+
+export const getFreeCamasbyArea = async (id_area:number): Promise<CamaEntity[]> => {
+  const res = await fetch(`${API_URL}frbyar`,{
+    method:"POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({id_area}),
+  })
+  if (!res.ok) throw new Error("no se pudieron obtener las camas habilitadas desocupadas")
+  return res.json();
 }

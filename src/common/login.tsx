@@ -31,6 +31,8 @@ export default function Login() {
       const data = await res.json();
 
       sessionStorage.setItem("rl", data.id_rol)
+      sessionStorage.setItem("ar", data.id_area)
+      sessionStorage.setItem("cnd", data.id_cendis)
 
       switch (data.id_rol){
         case 1:

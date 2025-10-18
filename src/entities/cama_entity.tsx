@@ -10,4 +10,5 @@ export default interface CamaEntity{
     riesgo_caida: string //enum(Bajo, Medio, Alto)
     riesgo_ulcera: string //enum(Bajo, Medio, Alto)
     habilitada: boolean
+    occupied:boolean
 }

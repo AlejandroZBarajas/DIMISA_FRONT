@@ -8,6 +8,8 @@ export default function Header(){
 
     function Logout(){
         sessionStorage.setItem("rl","")
+        sessionStorage.setItem("ar", "")
+        sessionStorage.setItem("cnd", "")
     }
     function byebye(){
         Logout()
