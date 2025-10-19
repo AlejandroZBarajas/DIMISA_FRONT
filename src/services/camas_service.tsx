@@ -68,3 +68,23 @@ export const getFreeCamasbyArea = async (id_area:number): Promise<CamaEntity[]> 
   if (!res.ok) throw new Error("no se pudieron obtener las camas habilitadas desocupadas")
   return res.json();
 }
+
+export const occupyCama = async (cama: CamaEntity): Promise<void> => {
+  console.log(cama)
+  const res = await fetch(`${API_URL}update`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(cama),
+  })
+  if(!res.ok) throw new Error("error en el front al ocupar cama")
+    return res.json()
+}
+
+export const setCamaFree = async (id_cama: number): Promise<void> => {
+  const res = await fetch(`${API_URL}setfree`,{
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({id_cama}),
+  })
+  if(!res.ok) throw new Error("error en el front al desocupar cama")
+}
