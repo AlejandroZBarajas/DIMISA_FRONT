@@ -52,10 +52,15 @@ export default function CamaCard({ cama, onEdit, onRefresh }: Props) {
         </div>
       </div>
     <div className="w-full h-[2px] border-2 border-solid border-black"></div>
+    <h2 className="font-bold" >Nombres</h2>
       <h3>{cama.nombres}</h3>
+      <h2 className="font-bold">Apellido 1</h2>
       <h3>{cama.apellido1}</h3>
+      <h2 className="font-bold">Apellido 2</h2>
       <h3>{cama.apellido2}</h3>
+      <h2 className="font-bold">Fecha nac.</h2>
       <h3>{cama.fecha_nac}</h3>
+      <h2 className="font-bold">Expediente</h2>
       <h3>{cama.expediente}</h3>
 
  {cama.occupied ? (
