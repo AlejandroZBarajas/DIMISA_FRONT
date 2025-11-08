@@ -51,7 +51,7 @@ export default function Login() {
           navigate("/enfermeria/camas")
           break
         case 6:
-          navigate("/unidosis/solicitudes")
+          navigate("/unidosis/colectivos")
           break
         default:
         setError("Rol no reconocido");

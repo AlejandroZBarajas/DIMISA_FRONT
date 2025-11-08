@@ -2,8 +2,8 @@ import { Navigate } from "react-router-dom";
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
-  allowedRoles: string[]; // ej. ["administrador"]
-  userRole: string | null; // obtenido de cookies o contexto
+  allowedRoles: string[]; 
+  userRole: string | null; 
 }
 
 export function ProtectedRoute({
@@ -12,7 +12,7 @@ export function ProtectedRoute({
   userRole,
 }: ProtectedRouteProps) {
   if (!userRole || !allowedRoles.includes(userRole)) {
-    return <Navigate to="/" replace />; // redirige a login o página principal
+    return <Navigate to="/" replace />
   }
 
   return <>{children}</>;

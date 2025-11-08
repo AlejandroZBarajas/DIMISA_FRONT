@@ -1,5 +1,5 @@
-export default interface ClaveEntity{
-    id_medicamento?:number
-    clave_medicamento: string
-    descripcion: string
+export interface ClaveEntity {
+  id_medicamento: number
+  clave_med: string
+  descripcion: string
 }
