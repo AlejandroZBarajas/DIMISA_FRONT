@@ -1,0 +1,56 @@
+import type { Colectivo } from "../entities/colectivo_entity";
+const API_URL = import.meta.env.VITE_API_URL 
+
+export async function createColectivo(data: Colectivo): Promise<Colectivo> {
+  try {
+    const response = await fetch(`${API_URL}colectivos/create`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(`Error al crear el colectivo: ${errorText}`);
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error("Error en createColectivo:", error);
+    throw error;
+  }
+}
+
+export async function getColectivosByCendis(id_cendis: number): Promise<Colectivo[]> {
+  try {
+    const response = await fetch(`${API_URL}/colectivos/by-cendis`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id_cendis }),
+    });
+
+    if (!response.ok) throw new Error("No se pudieron obtener los colectivos");
+
+    return await response.json();
+  } catch (error) {
+    console.error("Error en getColectivosByCendis:", error);
+    throw error;
+  }
+}
+
+export async function getPendingColectivosByCendis(id_cendis: number): Promise<Colectivo[]> {
+  try {
+    const response = await fetch(`${API_URL}/colectivos/pending`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id_cendis }),
+    });
+
+    if (!response.ok) throw new Error("No se pudieron obtener los colectivos pendientes");
+
+    return await response.json();
+  } catch (error) {
+    console.error("Error en getPendingColectivosByCendis:", error);
+    throw error;
+  }
+}

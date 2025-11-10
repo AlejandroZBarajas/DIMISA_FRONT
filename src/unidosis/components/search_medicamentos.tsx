@@ -39,14 +39,6 @@ export default function SearchMedicamentos() {
             ))}
            </tbody>
         </table>
-      /*   <ul className="mt-3 border rounded-lg divide-y">
-          {results.map((clave) => (
-            <li key={clave.id} className="p-2 hover:bg-gray-100 cursor-pointer">
-              <strong>{clave.nombre}</strong>
-              {clave.descripcion && <p className="text-sm text-gray-600">{clave.descripcion}</p>}
-            </li>
-          ))}
-        </ul> */
       )}
 
       {!loading && !error && query.length >= 2 && results.length === 0 && (

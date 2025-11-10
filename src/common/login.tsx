@@ -15,7 +15,6 @@ export default function Login() {
   const API_URL = import.meta.env.VITE_API_URL + "login";
 
   const handleLogin = async () => {
-    console.log("al menos el boton jala")
     setError("");
     try {
       const res = await fetch(API_URL, {
@@ -29,10 +28,12 @@ export default function Login() {
         throw new Error(data.message || "Error al iniciar sesión");
       }
       const data = await res.json();
+      console.log("data : "+data)
 
       sessionStorage.setItem("rl", data.id_rol)
       sessionStorage.setItem("ar", data.id_area)
       sessionStorage.setItem("cnd", data.id_cendis)
+      sessionStorage.setItem("usr", data.id_usuario)
 
       switch (data.id_rol){
         case 1:
