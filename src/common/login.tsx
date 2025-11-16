@@ -4,7 +4,10 @@ import Header from "./header";
 
 
 export default function Login() {
-  //sessionStorage.setItem("rol", "")
+  /* sessionStorage.setItem("rl", "")
+  sessionStorage.setItem("ar", "")
+  sessionStorage.setItem("cnd", "")
+  sessionStorage.setItem("usr", "") */
 
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
@@ -22,13 +25,12 @@ export default function Login() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password }),
       });
+      const data = await res.json();
 
       if (!res.ok) {
         const data = await res.json();
         throw new Error(data.message || "Error al iniciar sesión");
       }
-      const data = await res.json();
-      console.log("data : "+data)
 
       sessionStorage.setItem("rl", data.id_rol)
       sessionStorage.setItem("ar", data.id_area)

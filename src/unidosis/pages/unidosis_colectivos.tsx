@@ -1,7 +1,7 @@
 import Header from "../../common/header";
 import UnidosisSubheader from "../components/unidosis_subheader";
 //import SearchMedicamentos from "../components/search_medicamentos";
-import ColectivoMaker from "../components/colectivoMaker";
+import ColectivoMaker from "../components/colectivo_maker";
 
 export default function UnidosisColectivos(){
     return(

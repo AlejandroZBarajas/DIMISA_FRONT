@@ -10,6 +10,7 @@ export default function Header(){
         sessionStorage.setItem("rl","")
         sessionStorage.setItem("ar", "")
         sessionStorage.setItem("cnd", "")
+        sessionStorage.setItem("usr", "")
     }
     function byebye(){
         Logout()

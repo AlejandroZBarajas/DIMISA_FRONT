@@ -65,11 +65,11 @@ const handleCreateColectivo = async () => {
   console.log(colectivo)
   try {
     const creado = await createColectivo(colectivo)
-    console.log("✅ Colectivo creado:", creado)
+    console.log("Colectivo creado:", creado)
     alert(`Colectivo generado con folio ${creado.folio}`)
-    setLista([]) // limpia la tabla después de crear
+    setLista([]) 
   } catch (err) {
-    console.error("❌ Error al crear colectivo:", err)
+    console.error("Error al crear colectivo:", err)
     alert("Ocurrió un error al crear el colectivo")
   }
 }
@@ -150,9 +150,55 @@ const handleCreateColectivo = async () => {
               <th className="border border-gray-300 px-2 py-1 text-center">
                 Cantidad (cajas)
               </th>
+              <th className="border border-gray-300 px-2 py-1 text-center">Eliminar</th>
             </tr>
           </thead>
           <tbody>
+  {lista.map((item, index) => (
+    <tr key={index} className="hover:bg-gray-50">
+      <td className="border border-gray-300 px-2 py-1">{item.clave}</td>
+      <td className="border border-gray-300 px-2 py-1">
+        {item.descripcion}
+      </td>
+      {/* Campo editable para cantidad */}
+      <td className="border border-gray-300 px-2 py-1 text-center">
+        <input
+          type="number"
+          min={0}
+          value={item.cantidad}
+          onChange={(e) => {
+            const nuevaCantidad = Number(e.target.value);
+            setLista((prev) => {
+              const copia = [...prev];
+
+              if (nuevaCantidad <= 0) {
+                // eliminar producto en 0
+                return copia.filter((_, i) => i !== index);
+              }
+
+              copia[index].cantidad = nuevaCantidad;
+              return copia;
+            });
+          }}
+          className="w-20 border rounded p-1 text-center"
+        />
+      </td>
+
+      {/* Botón de eliminar */}
+      <td className="border border-gray-300 px-2 py-1 text-center">
+        <button
+          onClick={() =>
+            setLista((prev) => prev.filter((_, i) => i !== index))
+          }
+          className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition"
+        >
+          ✕
+        </button>
+      </td>
+    </tr>
+  ))}
+</tbody>
+          {/* <tbody>
             {lista.map((item, index) => (
               <tr key={index} className="hover:bg-gray-50">
                 <td className="border border-gray-300 px-2 py-1">
@@ -167,7 +213,7 @@ const handleCreateColectivo = async () => {
               </tr>
             ))}
           </tbody>
-        </table>
+ */}        </table>
             <button
               type="button"
               onClick={handleCreateColectivo}

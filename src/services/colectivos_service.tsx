@@ -1,7 +1,7 @@
-import type { Colectivo } from "../entities/colectivo_entity";
+import type { ColectivoEntity } from "../entities/colectivo_entity";
 const API_URL = import.meta.env.VITE_API_URL 
 
-export async function createColectivo(data: Colectivo): Promise<Colectivo> {
+export async function createColectivo(data: ColectivoEntity): Promise<ColectivoEntity> {
   try {
     const response = await fetch(`${API_URL}colectivos/create`, {
       method: "POST",
@@ -21,9 +21,9 @@ export async function createColectivo(data: Colectivo): Promise<Colectivo> {
   }
 }
 
-export async function getColectivosByCendis(id_cendis: number): Promise<Colectivo[]> {
+export async function getColectivosByCendis(id_cendis: number): Promise<ColectivoEntity[]> {
   try {
-    const response = await fetch(`${API_URL}/colectivos/by-cendis`, {
+    const response = await fetch(`${API_URL}colectivos/by-cendis`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ id_cendis }),
@@ -38,9 +38,9 @@ export async function getColectivosByCendis(id_cendis: number): Promise<Colectiv
   }
 }
 
-export async function getPendingColectivosByCendis(id_cendis: number): Promise<Colectivo[]> {
+export async function getPendingColectivosByCendis(id_cendis: number): Promise<ColectivoEntity[]> {
   try {
-    const response = await fetch(`${API_URL}/colectivos/pending`, {
+    const response = await fetch(`${API_URL}colectivos/pending`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ id_cendis }),
