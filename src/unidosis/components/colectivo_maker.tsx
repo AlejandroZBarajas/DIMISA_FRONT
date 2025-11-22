@@ -43,7 +43,7 @@ const handleCreateColectivo = async () => {
   }
 
   const user_id = sessionStorage.getItem("usr")
-  //const id_area = sessionStorage.getItem("ar")
+  const id_area = sessionStorage.getItem("ar")
   const id_cendis = sessionStorage.getItem("cnd")
   if (!user_id) {
     alert("No se encontró el usuario en sesión")
@@ -53,7 +53,7 @@ const handleCreateColectivo = async () => {
   const colectivo = {
     fecha: new Date().toISOString().split("T")[0], // formato YYYY-MM-DD
     id_user: Number(user_id),
-    //id_area: Number(id_area),
+    id_area: Number(id_area),
     id_cendis: Number(id_cendis),
     capturado: false,
     claves: lista.map((item) => ({
