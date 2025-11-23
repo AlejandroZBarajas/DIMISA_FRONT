@@ -6,7 +6,7 @@ interface Props {
   colectivo: ColectivoEntity;
 }
 
-export default function ColectivoCard({ colectivo }: Props) {
+export default function ColectivoParaEntrada({ colectivo }: Props) {
   const [open, setOpen] = useState(false);
   const [cantidades, setCantidades] = useState<Record<number, number>>({});
   const [guardando, setGuardando] = useState(false);
@@ -51,6 +51,7 @@ export default function ColectivoCard({ colectivo }: Props) {
 
   return (
     <div className="border rounded-lg shadow p-4 mb-4">
+      <h1>colectivo para entrada</h1>
       <div
         className="flex justify-between items-center cursor-pointer"
         onClick={() => setOpen(!open)}

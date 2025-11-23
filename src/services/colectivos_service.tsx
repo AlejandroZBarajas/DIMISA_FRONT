@@ -54,3 +54,19 @@ export async function getPendingColectivosByCendis(id_cendis: number): Promise<C
     throw error;
   }
 }
+export async function getColectivosEditablesByCendis(id_cendis: number): Promise<ColectivoEntity[]> {
+  try {
+    const response = await fetch(`${API_URL}colectivos/editables`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id_cendis }),
+    });
+
+    if (!response.ok) throw new Error("No se pudieron obtener los colectivos pendientes");
+
+    return await response.json();
+  } catch (error) {
+    console.error("Error en getColectivosEditablesByCendis:", error);
+    throw error;
+  }
+}

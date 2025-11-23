@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { getPendingColectivosByCendis } from "../../services/colectivos_service";
 import type { ColectivoEntity } from "../../entities/colectivo_entity";
-import ColectivoCard from "./colectivo_card";
+import ColectivoCard from "./colectivo_para_entrada";
+import ColectivoParaEntrada from "./colectivo_para_entrada";
 
 export default function CapturadorEntradas() {
   const [colectivos, setColectivos] = useState<ColectivoEntity[]>([]);
@@ -35,7 +36,7 @@ export default function CapturadorEntradas() {
       {colectivos.length === 0 ? (
         <p>No hay colectivos pendientes.</p>
       ) : (
-        colectivos.map((c) => <ColectivoCard key={c.id_colectivo} colectivo={c} />)
+        colectivos.map((c) => <ColectivoParaEntrada key={c.id_colectivo} colectivo={c} />)
       )}
     </div>
   );
