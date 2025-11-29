@@ -1,84 +1,119 @@
-import { useState } from "react"
-import { useSearchClaves } from "../../hooks/useSearchClavesHook"
-import type { ClaveEntity } from "../../entities/clave_entity"
-import { createColectivo } from "../../services/colectivos_service"
+import { useEffect, useState } from "react";
+import { useSearchClaves } from "../../hooks/useSearchClavesHook";
+import type SalidaEntity from "../../entities/salida_entity";
+import type SalidaDTO from "../../entities/salida_DTO";
+import type AreaEntity from "../../entities/area_entity";
+import type { ClaveEntity } from "../../entities/clave_entity";
+import { createSalida } from "../../services/salidas_service";
+import { getAreasByCendis } from "../../services/areas_service";
 
-export default function ColectivoMaker() {
-  const [query, setQuery] = useState("")
-  const { results, loading, error } = useSearchClaves(query)
+export default function SalidasMaker(){
+    const [areas, setAreas] = useState<AreaEntity[]>([])
+    const [selectedArea, setSelectedArea] = useState <string>("")
 
-  const [selected, setSelected] = useState<ClaveEntity | null>(null)
-  const [cantidad, setCantidad] = useState<number>(1)
-  const [lista, setLista] = useState<
-    { id_medicamento: number; clave: string; descripcion: string; cantidad: number }[]
-  >([])
+    const [query, setQuery] = useState("")
+    const { results, loading, error } = useSearchClaves(query)
 
-  const handleSelect = (item: ClaveEntity) => {
+    const [selected, setSelected] = useState<ClaveEntity | null>(null)
+    const [cantidad, setCantidad] = useState<number>(1)
+    const [lista, setLista] = useState<
+        { id_medicamento: number; clave: string; descripcion: string; cantidad: number }[]
+        >([])
+
+
+    const cendis = sessionStorage.getItem("cnd")
+    console.log("id_cendis obtenido de la sessionstorage: ",cendis)
+    const id_cendis = Number(cendis)
+    useEffect(()=> {
+        const fetchAreas = async () => {
+            try{
+                const areasResponse = await getAreasByCendis(id_cendis)
+                console.log("areas del fetch",areasResponse)
+                setAreas(areasResponse)
+            }catch (error){
+                console.error("error al obtener las areas del cendis ", error)
+            }
+        }
+        fetchAreas()
+    },[])
+
+    const handleSelect = (item: ClaveEntity) => {
     setSelected(item)
     setQuery("") 
-  }
+    }
 
-  const handleAdd = () => {
+    const handleAdd = () => {
     
     if (!selected) return
     if (cantidad <= 0) return alert("La cantidad debe ser mayor a 0")
     setLista((prev) => [
-      ...prev,
-      {
+        ...prev,
+        {
         id_medicamento: Number(selected.id_medicamento),
         clave: selected.clave_med,
         descripcion: selected.descripcion,
         cantidad,
-      },
+        },
     ])
     setSelected(null)
     setCantidad(1)
-  }
+    }
+    
+    const handleCreateSalida = async () => {
+      if (lista.length === 0) {
+        alert("Agrega al menos un medicamento antes de generar el colectivo")
+        return
+      }
+    
+      const user_id = sessionStorage.getItem("usr")
+      const id_cendis = sessionStorage.getItem("cnd")
+      if (!user_id) {
+        alert("No se encontró el usuario en sesión")
+        return
+      }
+    
+      const salida = {
+        id_area: Number(selectedArea),
+        id_cendis: Number(id_cendis),
+        id_usuario: Number(user_id),
+        fecha: new Date().toISOString().split("T")[0], // formato YYYY-MM-DD
+        claves: lista.map((item) => ({
+          id_medicamento: item.id_medicamento,
+          cantidad: item.cantidad,
+        })),
+      }
+    
+      console.log("salida: ",salida)
+      try {
+        const creado = await createSalida(salida)
+        console.log("salida creado:", creado)
+        setLista([]) 
+      } catch (err) {
+        console.error("Error al crear salida:", err)
+        alert("Ocurrió un error al crear salida")
+      }
+    }
 
-const handleCreateColectivo = async () => {
-  if (lista.length === 0) {
-    alert("Agrega al menos un medicamento antes de generar el colectivo")
-    return
-  }
-
-  const user_id = sessionStorage.getItem("usr")
-  const id_area = sessionStorage.getItem("ar")
-  const id_cendis = sessionStorage.getItem("cnd")
-  if (!user_id) {
-    alert("No se encontró el usuario en sesión")
-    return
-  }
-
-  const colectivo = {
-    fecha: new Date().toISOString().split("T")[0], // formato YYYY-MM-DD
-    id_user: Number(user_id),
-    id_area: Number(id_area),
-    id_cendis: Number(id_cendis),
-    capturado: false,
-    claves: lista.map((item) => ({
-      id_medicamento: item.id_medicamento,
-      cantidad: item.cantidad,
-    })),
-  }
-
-  console.log(colectivo)
-  try {
-    const creado = await createColectivo(colectivo)
-    console.log("Colectivo creado:", creado)
-    alert(`Colectivo generado con folio ${creado.folio}`)
-    setLista([]) 
-  } catch (err) {
-    console.error("Error al crear colectivo:", err)
-    alert("Ocurrió un error al crear el colectivo")
-  }
-}
-
-
-  return (
+     return (
     <div className="max-w-4xl mx-auto p-4">
-      <h2 className="text-xl font-semibold mb-4">Agregar Medicamentos</h2>
+        <h2>Seleccione el área</h2>
+       <select
+        name="id_area"
+        value={selectedArea}
+        onChange={(e) => setSelectedArea(e.target.value)}
+        className="mt-1 w-full rounded-lg border p-2"
+        required
+        >
+        <option value="">Seleccione un área</option>
 
-      {/*  Buscador */}
+        {areas.map((area) => (
+            <option key={area.id_area} value={area.id_area}>
+            {area.nombre_area}
+            </option>
+        ))}
+        </select>
+        <h3 className="text-xl font-semibold mb-4">Agregar atículos a la salida</h3>
+
       <div className="relative">
         <input
           type="text"
@@ -88,7 +123,6 @@ const handleCreateColectivo = async () => {
           className="w-full border rounded-xl p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
 
-        {/* Resultados de búsqueda */}
         {query.length >= 2 && (
           <div className="absolute w-full bg-white border rounded-md mt-1 max-h-60 overflow-y-auto shadow-lg z-10">
             {loading && <p className="p-2 text-gray-500">Buscando...</p>}
@@ -108,7 +142,6 @@ const handleCreateColectivo = async () => {
         )}
       </div>
 
-      {/*  Sección de cantidad y añadir */}
       {selected && (
         <div className="mt-4 p-3 border rounded-lg bg-gray-50">
           <p>
@@ -134,7 +167,6 @@ const handleCreateColectivo = async () => {
         </div>
       )}
 
-      {/*  Tabla con medicamentos añadidos */}
       {lista.length > 0 && (
         <>
         <table className="w-full mt-6 border-collapse border border-gray-300 text-sm">
@@ -200,10 +232,10 @@ const handleCreateColectivo = async () => {
           </table>
             <button
               type="button"
-              onClick={handleCreateColectivo}
+              onClick={handleCreateSalida}
               className="bg-blue-600 text-white px-4 py-1 rounded-lg hover:bg-blue-700 transition"
             >
-              Generar colectivo
+              Generar Salida
             </button>
             </>
       )}

@@ -1,5 +1,6 @@
 import Header from "../../common/header";
 import UnidosisSubheader from "../components/unidosis_subheader";
+import SalidasMaker from "../components/salidas_maker";
 
 function UnidosisSalidas(){
 
@@ -7,6 +8,7 @@ function UnidosisSalidas(){
         <div>
             <Header></Header>
             <UnidosisSubheader></UnidosisSubheader>
+            <SalidasMaker></SalidasMaker>
         </div>
     )
 }

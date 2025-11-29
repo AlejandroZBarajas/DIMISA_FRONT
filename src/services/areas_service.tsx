@@ -46,3 +46,14 @@ export const getFreeAreas = async (): Promise<AreaEntity[]> =>{
   if(!res.ok) throw new Error("No se pudieron obtener areas sin vincular a cendis")
   return res.json()
 }
+
+export const getAreasByCendis = async (id_cendis: number): Promise <AreaEntity[]> => {
+  console.log("id_cendis: ",id_cendis)
+  const res = await fetch(`${API_URL}/cendis`,{
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({id_cendis})
+  })
+  if(!res.ok) throw new Error("No se pudieron obtener areas asociadas al cendis")
+  return res.json()
+}

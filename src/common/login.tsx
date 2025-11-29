@@ -29,13 +29,15 @@ export default function Login() {
 
       if (!res.ok) {
         const data = await res.json();
+        
         throw new Error(data.message || "Error al iniciar sesión");
       }
-
-      sessionStorage.setItem("rl", data.id_rol)
-      sessionStorage.setItem("ar", data.id_area)
-      sessionStorage.setItem("cnd", data.id_cendis)
-      sessionStorage.setItem("usr", data.id_usuario)
+    await new Promise(resolve => setTimeout(resolve, 100));  
+    sessionStorage.setItem("rl", data.id_rol)
+    sessionStorage.setItem("ar", data.id_area)
+    sessionStorage.setItem("cnd", data.id_cendis)
+    sessionStorage.setItem("usr", data.id_usuario)
+    await new Promise(resolve => setTimeout(resolve, 100));
 
       switch (data.id_rol){
         case 1:
