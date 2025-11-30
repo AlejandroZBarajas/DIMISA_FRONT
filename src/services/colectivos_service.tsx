@@ -54,6 +54,7 @@ export async function getPendingColectivosByCendis(id_cendis: number): Promise<C
     throw error;
   }
 }
+
 export async function getColectivosEditablesByCendis(id_cendis: number): Promise<ColectivoEntity[]> {
   try {
     const response = await fetch(`${API_URL}colectivos/editables`, {

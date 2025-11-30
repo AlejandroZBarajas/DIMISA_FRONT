@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import { useSearchClaves } from "../../hooks/useSearchClavesHook";
 import type SalidaEntity from "../../entities/salida_entity";
-import type SalidaDTO from "../../entities/salida_DTO";
+import { useSearchClaves } from "../../hooks/useSearchClavesHook";
 import type AreaEntity from "../../entities/area_entity";
 import type { ClaveEntity } from "../../entities/clave_entity";
 import { createSalida } from "../../services/salidas_service";
