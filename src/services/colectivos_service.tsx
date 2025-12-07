@@ -1,4 +1,6 @@
 import type { ColectivoEntity } from "../entities/colectivo_entity";
+import type { ColectivoDTO } from "../entities/colectivo_DTO";
+
 const API_URL = import.meta.env.VITE_API_URL 
 
 export async function createColectivo(data: ColectivoEntity): Promise<ColectivoEntity> {
@@ -21,7 +23,7 @@ export async function createColectivo(data: ColectivoEntity): Promise<ColectivoE
   }
 }
 
-export async function getColectivosByCendis(id_cendis: number): Promise<ColectivoEntity[]> {
+export async function getColectivosByCendis(id_cendis: number): Promise<ColectivoDTO[]> {
   try {
     const response = await fetch(`${API_URL}colectivos/by-cendis`, {
       method: "POST",
@@ -38,7 +40,7 @@ export async function getColectivosByCendis(id_cendis: number): Promise<Colectiv
   }
 }
 
-export async function getPendingColectivosByCendis(id_cendis: number): Promise<ColectivoEntity[]> {
+export async function getPendingColectivosByCendis(id_cendis: number): Promise<ColectivoDTO[]> {
   try {
     const response = await fetch(`${API_URL}colectivos/pending`, {
       method: "POST",
@@ -55,7 +57,7 @@ export async function getPendingColectivosByCendis(id_cendis: number): Promise<C
   }
 }
 
-export async function getColectivosEditablesByCendis(id_cendis: number): Promise<ColectivoEntity[]> {
+export async function getColectivosEditablesByCendis(id_cendis: number): Promise<ColectivoDTO[]> {
   try {
     const response = await fetch(`${API_URL}colectivos/editables`, {
       method: "POST",

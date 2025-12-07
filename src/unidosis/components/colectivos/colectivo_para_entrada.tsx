@@ -1,9 +1,9 @@
 import { useState } from "react";
-import type { ColectivoEntity } from "../../entities/colectivo_entity";
-import { capturarEntrada } from "../../services/entradas_service";
+import { capturarEntrada } from "../../../services/entradas_service";
+import type { ColectivoDTO } from "../../../entities/colectivo_DTO";
 
 interface Props {
-  colectivo: ColectivoEntity;
+  colectivo: ColectivoDTO;
 }
 
 export default function ColectivoParaEntrada({ colectivo }: Props) {

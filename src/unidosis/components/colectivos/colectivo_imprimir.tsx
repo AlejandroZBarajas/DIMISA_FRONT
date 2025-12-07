@@ -1,9 +1,9 @@
 import { useState } from "react";
-import type { ColectivoEntity } from "../../entities/colectivo_entity";
-import logo_header from '../../assets/logo_header.png'
+import type { ColectivoDTO } from "../../../entities/colectivo_DTO";
+import logo_header from "../../../../src/assets/logo_header.png"
 
 interface Props {
-  colectivo: ColectivoEntity;
+  colectivo: ColectivoDTO;
 }
 
 export default function ColectivoParaImprimir({ colectivo }: Props) {
@@ -165,7 +165,7 @@ function handleImprimir() {
 }
 
   return (
-    <div className="border rounded-lg shadow p-4 mb-4 w-1/2">
+    <div className="border rounded-lg shadow p-4 mb-4 w-full">
       <div
         className="flex justify-between items-center cursor-pointer"
         onClick={() => setOpen(!open)}

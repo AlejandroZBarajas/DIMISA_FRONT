@@ -51,7 +51,7 @@ export default function App() {
             <EnfermeriaCamas />
         </ProtectedRoute>} />
 
-        <Route path="/enfermeria/solicitar" element={
+      <Route path="/enfermeria/solicitar" element={
         <ProtectedRoute allowedRoles={["5"]} userRole={userRol}>
             <EnfermeriaSolicitar />
         </ProtectedRoute>} /> 
@@ -62,16 +62,16 @@ export default function App() {
             <UnidosisColectivos />
         </ProtectedRoute>} />
 
-  <Route path="/unidosis/entradas" element={
-    <ProtectedRoute allowedRoles={["6"]} userRole={userRol} >
-      <UnidosisEntradas/>
-    </ProtectedRoute> }/>
-    
-  <Route path="/unidosis/salidas" element={
-    <ProtectedRoute allowedRoles={["6"]} userRole={userRol} >
-      <UnidosisSalidas/>
-    </ProtectedRoute> }/>
-    </Routes>
+      <Route path="/unidosis/entradas" element={
+        <ProtectedRoute allowedRoles={["6"]} userRole={userRol} >
+          <UnidosisEntradas/>
+        </ProtectedRoute> }/>
+        
+      <Route path="/unidosis/salidas" element={
+        <ProtectedRoute allowedRoles={["6"]} userRole={userRol} >
+          <UnidosisSalidas/>
+        </ProtectedRoute> }/>
+        </Routes>
   )
 }
 

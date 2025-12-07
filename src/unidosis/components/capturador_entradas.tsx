@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { getPendingColectivosByCendis } from "../../services/colectivos_service";
 import type { ColectivoEntity } from "../../entities/colectivo_entity";
-import ColectivoCard from "./colectivo_para_entrada";
-import ColectivoParaEntrada from "./colectivo_para_entrada";
+import ColectivoCard from "./colectivos/colectivo_para_entrada";
+import ColectivoParaEntrada from "./colectivos/colectivo_para_entrada";
 
 export default function CapturadorEntradas() {
   const [colectivos, setColectivos] = useState<ColectivoEntity[]>([]);
