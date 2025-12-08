@@ -1,5 +1,6 @@
 import type { ColectivoEntity } from "../entities/colectivo_entity";
 import type { ColectivoDTO } from "../entities/colectivo_DTO";
+import type { ColectivoDetalleEntity } from "../entities/colectivo_detalle_entity";
 
 const API_URL = import.meta.env.VITE_API_URL 
 
@@ -71,5 +72,23 @@ export async function getColectivosEditablesByCendis(id_cendis: number): Promise
   } catch (error) {
     console.error("Error en getColectivosEditablesByCendis:", error);
     throw error;
+  }
+}
+
+export async function addToColectivo(tipo_colectivo:number, detalles :ColectivoDetalleEntity[]):Promise <string>{
+  try{
+    const response = await fetch (`${API_URL}add`,{
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ tipo_colectivo, detalles }),
+    })
+
+    if(!response.ok){
+      throw new Error ("No se pudieron añadir claves")
+    }
+    return await response.json()
+  }catch (error){
+    console.error("Error al añadir claves ", error)
+    throw error
   }
 }

@@ -1,4 +1,4 @@
-export interface ColectivoDetalleEntity {
+export interface ColectivoDetalleDTO {
   id_detalle?: number;
   id_colectivo?: number;
   clave?: string | undefined;

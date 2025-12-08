@@ -1,4 +1,4 @@
-import type { ColectivoDetalleEntity} from "./colectivo_detalle_entity";
+import type { ColectivoDetalleDTO } from "./colectivo_detalle_DTO";
 
 export interface ColectivoDTO{
     id_colectivo: number,
@@ -10,5 +10,5 @@ export interface ColectivoDTO{
     nombre_usuario:string
     id_cendis: number,
     cendis:string
-    claves: ColectivoDetalleEntity[];
+    claves: ColectivoDetalleDTO[];
 }

@@ -5,7 +5,7 @@ import UnidosisSubheader from "../components/unidosis_subheader";
 
 import ColectivoMaker from "../components/colectivos/colectivo_maker";
 import { getColectivosEditablesByCendis } from "../../services/colectivos_service";
-import ColectivoParaImprimir from "../components/colectivos/colectivo_imprimir";
+import ColectivoCard from "../components/colectivos/colectivo_card";
 
 export default function UnidosisColectivos(){
   const [colectivos, setColectivos] = useState<ColectivoDTO[]>([]);
@@ -38,7 +38,7 @@ export default function UnidosisColectivos(){
 
               {
                   colectivos.map((c) => (
-                  <ColectivoParaImprimir 
+                  <ColectivoCard
                       key={c.id_colectivo} 
                       colectivo={c} 
                   />
