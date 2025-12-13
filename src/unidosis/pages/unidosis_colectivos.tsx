@@ -13,27 +13,29 @@ export default function UnidosisColectivos(){
   const cendis = sessionStorage.getItem("cnd")
   const id_cendis = Number(cendis)
 
-   useEffect(() => {
-      async function fetchData() {
-        try {
-          const res = await getColectivosEditablesByCendis(id_cendis); 
-          setColectivos(res ?? []);
-          console.log("res: ",res)
-          console.log("id_cendis: ",id_cendis)
-        } catch (err) {
-          console.error("Error cargando colectivos:", err);
-        } 
-      }
   
-      fetchData();
-    }, []);
-
+  const fetchColectivos = async () => {
+    try {
+      const res = await getColectivosEditablesByCendis(id_cendis); 
+      setColectivos(res ?? []);
+    } catch (err) {
+      console.error("Error cargando colectivos:", err);
+    } 
+  }
+  
+  useEffect(() => {
+     fetchColectivos();
+   }, []);
+  
     return(
         <div className="flex flex-col items-center">
             <Header></Header>
             <UnidosisSubheader></UnidosisSubheader>
             <div className="flex flex-row w-12/12 justify-center">
-              <ColectivoMaker></ColectivoMaker>
+              <ColectivoMaker
+                colectivosExistentes={colectivos}
+                onColectivoCreado={fetchColectivos}
+              />
               <div className="flex flex-col p-4 w-7/12 ">
 
               {
