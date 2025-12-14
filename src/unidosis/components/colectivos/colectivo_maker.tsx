@@ -80,8 +80,8 @@ export default function ColectivoMaker({colectivosExistentes, onColectivoCreado}
       return;
     }
 
-    const user_id = sessionStorage.getItem("usr");
-    const id_cendis = sessionStorage.getItem("cnd");
+    const user_id = Number(sessionStorage.getItem("usr"));
+    const id_cendis = Number(sessionStorage.getItem("cnd"));
 
     if (!user_id) {
       alert("No se encontró el usuario en sesión");
@@ -100,16 +100,17 @@ export default function ColectivoMaker({colectivosExistentes, onColectivoCreado}
 
       if(existeColectivoAbierto){
         console.log("📦 Intentando agregar al colectivo existente");
+        console.log("id_cendis: ", id_cendis)
         console.log("tipo_id:", tipo_id);
         console.log("detalles:", detalles);
          
         try {
-          const resultado = await addToColectivo(tipo_id, detalles);
+          const resultado = await addToColectivo(id_cendis, tipo_id, detalles);
           console.log("✅ Respuesta del servidor:", resultado);
           alert("Artículos agregados al colectivo existente");
         } catch (error) {
-          console.error("❌ Error específico al agregar:", error);
-          throw error; // Re-lanza para que lo capture el catch externo
+          console.error("Error específico al agregar:", error);
+          throw error;
         }
       } else {
         const colectivo = {

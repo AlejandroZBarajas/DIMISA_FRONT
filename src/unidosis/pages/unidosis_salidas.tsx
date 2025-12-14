@@ -1,42 +1,60 @@
+import { useState, useEffect } from "react";
+import type AreaEntity from "../../entities/area_entity";
 import Header from "../../common/header";
 import UnidosisSubheader from "../components/unidosis_subheader";
-import SalidasMaker from "../components/salidas_maker";
-import { useState, useEffect } from "react";
-import type SalidaDTO from "../../entities/salida_DTO";
-import { getSalidasEditablesByCendis } from "../../services/salidas_service";
-import SalidaParaImprimir from "../components/salida_imprimir";
+import SalidasMaker from "../components/salidas/salidas_maker";
+import { getAreasByCendis } from "../../services/areas_service";
+import { getTipos } from "../../services/tipo_col_sal";
+import type TipoEntity from "../../entities/tipo_entity";
+
+
 
 function UnidosisSalidas(){
-    const [salidas, setSalidas] = useState <SalidaDTO[]>([])
+    const [myAreas, setMyAreas] = useState <AreaEntity[]>([])
+    const [tiposSalida, setTiposSalida] = useState <TipoEntity[]>([])
 
     const cendis = sessionStorage.getItem("cnd")
     const id_cendis = Number(cendis)
 
-    useEffect(() => {
-        async function fetchData(){
-            try{
-                const res = await getSalidasEditablesByCendis(id_cendis)
-                setSalidas(res ?? [])
-            }catch (error){
-                console.error(error)
-            }
+    const fetchAreas = async () => {
+        try{
+            const res = await getAreasByCendis(id_cendis)
+            setMyAreas(res ?? [])
+        } catch (error){
+            console.error("error al cargar las areas: ",error)
         }
-        fetchData()
+    }
+
+    const fetchTipos = async () => {
+        try{
+            const res = await getTipos()
+            console.log(res)
+            setTiposSalida(res)
+        }catch(error){
+            console.error("no se pudieron cargar tipos: ",error)
+        }
+    }
+
+
+    useEffect(() => {
+        fetchAreas()
+        fetchTipos()
     },[])
 
     return(
         <div className="flex flex-col items-center">
             <Header></Header>
             <UnidosisSubheader></UnidosisSubheader>
-            <SalidasMaker></SalidasMaker>
             {
-                salidas.map((s) => (
-                    <SalidaParaImprimir
-                    key={s.id_salida}
-                    salida={s}
+                myAreas.map((area)=>(
+                    <SalidasMaker
+                        key={area.id_area}
+                        area={area}
+                        tipos={tiposSalida}
                     />
                 ))
             }
+
         </div>
     )
 }

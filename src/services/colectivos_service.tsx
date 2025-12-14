@@ -75,12 +75,12 @@ export async function getColectivosEditablesByCendis(id_cendis: number): Promise
   }
 }
 
-export async function addToColectivo(tipo_colectivo:number, detalles :ColectivoDetalleEntity[]):Promise <string>{
+export async function addToColectivo(id_cendis: number, tipo_colectivo:number, detalles :ColectivoDetalleEntity[]):Promise <string>{
   try{
     const response = await fetch (`${API_URL}colectivos/add`,{
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ tipo_colectivo, detalles }),
+      body: JSON.stringify({id_cendis, tipo_colectivo, detalles }),
     })
 
     if(!response.ok){
