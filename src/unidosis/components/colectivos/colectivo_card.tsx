@@ -1,0 +1,87 @@
+import { useState } from "react";
+import type { ColectivoDTO } from "../../../entities/colectivo_DTO";
+import { Template } from "../../../imprimir/template";
+import { PrintColSal } from "../../../imprimir/printer";
+
+interface Props {
+  colectivo: ColectivoDTO;
+  onCantidadChange?: (index: number, cantidad: number) => void;
+  onEliminar?: (index: number) => void;
+  onGenerar?: () => void;
+}
+
+export default function ColectivoCard({
+  colectivo,
+}: Props) {
+  const [open, setOpen] = useState(true);
+
+function handleImprimir() {
+  const html = Template({
+    encabezado: "Colectivo",
+    tipo_nombre: colectivo.tipo,
+    folio: colectivo.folio,
+    fecha: colectivo.fecha,
+    usuario_nombre: colectivo.nombre_usuario,
+    cendis_nombre: colectivo.cendis,
+    lista: colectivo.claves.map(item => ({
+      clave: item.clave ?? "",
+      descripcion: item.descripcion ?? "",
+      cantidad: item.cantidad ?? 0, 
+    })),
+  });
+
+  PrintColSal(html);
+}
+
+  if (!colectivo.claves || colectivo.claves.length === 0) return null;
+
+  return (
+    <div className="border rounded-lg shadow p-4 mb-4 w-full bg-white">
+      <div
+        className="flex justify-between items-center cursor-pointer"
+        onClick={() => setOpen(!open)}
+      >
+        <div>
+          <h3 className="font-bold text-lg">{colectivo.tipo} - {colectivo.folio}</h3>
+          <p className="text-sm text-gray-600">Fecha: {colectivo.fecha}</p>
+          <p className="text-sm text-gray-600">Generado por: {colectivo.nombre_usuario}</p>
+        </div>
+        <button className="text-sm bg-blue-600 text-white px-3 py-1 rounded">
+          {open ? "Cerrar" : "Abrir"}
+        </button>
+      </div>
+
+      {open && (
+        <div className="mt-4">
+          <table className="w-full border text-sm">
+            <thead>
+              <tr className="bg-gray-200">
+                <th className="border p-2">Clave</th>
+                <th className="border p-2">Descripción</th>
+                <th className="border p-2 text-center">Cantidad</th>
+              </tr>
+            </thead>
+            <tbody>
+              {colectivo.claves.map((item, index: number) => (
+                <tr key={item.id_detalle || index}>
+                  <td className="border p-2">{item.clave}</td>
+                  <td className="border p-2">{item.descripcion}</td>
+                  <td className="border p-2 text-center">{item.cantidad}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+
+          <div className="flex gap-2 mt-4">
+            <button
+              onClick={handleImprimir}
+              className="flex-1 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+            >
+             Guardar e Imprimir
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
