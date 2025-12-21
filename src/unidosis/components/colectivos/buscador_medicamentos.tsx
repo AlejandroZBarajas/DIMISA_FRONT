@@ -22,7 +22,7 @@ export default function BuscadorMedicamentos({ onSelect }: BuscadorMedicamentosP
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         placeholder="Buscar medicamento..."
-        className="w-full border rounded-xl p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="w-full  bg-white border rounded-xl p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
 
       {query.length >= 2 && (

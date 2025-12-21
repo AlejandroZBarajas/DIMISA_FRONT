@@ -2,10 +2,10 @@ import { useState, useEffect } from "react";
 import type AreaEntity from "../../entities/area_entity";
 import Header from "../../common/header";
 import UnidosisSubheader from "../components/unidosis_subheader";
-import SalidasMaker from "../components/salidas/salidas_maker";
 import { getAreasByCendis } from "../../services/areas_service";
 import { getTipos } from "../../services/tipo_col_sal";
 import type TipoEntity from "../../entities/tipo_entity";
+import SalidasArea from "../components/salidas/salidas_area";
 
 
 
@@ -45,15 +45,17 @@ function UnidosisSalidas(){
         <div className="flex flex-col items-center">
             <Header></Header>
             <UnidosisSubheader></UnidosisSubheader>
-            {
-                myAreas.map((area)=>(
-                    <SalidasMaker
+            <div className=" w-full flex">
+                {
+                    myAreas.map((area)=>(
+                        <SalidasArea
                         key={area.id_area}
                         area={area}
                         tipos={tiposSalida}
-                    />
-                ))
-            }
+                        />
+                    ))
+                }
+            </div>
 
         </div>
     )
