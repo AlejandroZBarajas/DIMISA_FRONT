@@ -9,14 +9,14 @@ interface Props {
   lista: ItemLista[];
   onCantidadChange: (index: number, cantidad: number) => void;
   onEliminar: (index: number) => void;
-  onGenerar: () => void;
+  onUpdate: () => void;
 }
 
 export default function SalidaTabla({
   lista,
   onCantidadChange,
   onEliminar,
-  onGenerar,
+  onUpdate,
 }: Props) {
   if (lista.length === 0) return null;
 
@@ -35,9 +35,9 @@ export default function SalidaTabla({
           <tbody>
             {lista.map((item, index) => (
               <tr key={item.id_medicamento} className="hover:bg-gray-50">
-                <td className="border border-gray-300 px-2 py-1">{item.clave}</td>
-                <td className="border border-gray-300 px-2 py-1">{item.descripcion}</td>
-                <td className="border border-gray-300 px-2 py-1 text-center">
+                <td className="border border-gray-300 bg-white px-2 py-1">{item.clave}</td>
+                <td className="border border-gray-300 bg-white px-2 py-1">{item.descripcion}</td>
+                <td className="border border-gray-300 bg-white px-2 py-1 text-center">
                   <input
                     type="number"
                     min={1}
@@ -53,10 +53,10 @@ export default function SalidaTabla({
                     className="w-20 border rounded p-1 text-center"
                   />
                 </td>
-                <td className="border border-gray-300 px-2 py-1 text-center">
+                <td className="border border-gray-300 bg-white px-2 py-1 text-center">
                   <button
                     onClick={() => onEliminar(index)}
-                    className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition"
+                    className="bg-red-500  text-white px-3 py-1 rounded hover:bg-red-600 transition"
                   >
                     ✕
                   </button>
@@ -69,10 +69,10 @@ export default function SalidaTabla({
 
       <div className="mt-4">
         <button
-          onClick={onGenerar}
+          onClick={onUpdate}
           className="bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-600 transition"
         >
-          Agregar
+          Actualizar
         </button>
       </div>
     </div>
