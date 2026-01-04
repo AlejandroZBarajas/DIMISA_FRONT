@@ -51,9 +51,6 @@ export default function UserForm({ initialData, onSubmit }: Props) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
-    console.log(formData)
-
     if (!initialData && formData.password !== confirmPassword) {
       setPasswordError("Las contraseñas no coinciden.");
       return;
@@ -77,7 +74,6 @@ export default function UserForm({ initialData, onSubmit }: Props) {
       formattedData.id_cendis = idCendis;
     }
 
-  console.log("Datos enviados al backend:", formattedData);
   onSubmit(formattedData);
 };
 

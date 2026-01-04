@@ -24,7 +24,6 @@ const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 
 
   const handleSubmit = (e: React.FormEvent) => {
-    console.log("formData:" +formData)
     e.preventDefault();
     onSave(formData);
   };

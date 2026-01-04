@@ -70,7 +70,7 @@ export const getFreeCamasbyArea = async (id_area:number): Promise<CamaEntity[]> 
 }
 
 export const occupyCama = async (cama: CamaEntity): Promise<void> => {
-  console.log(cama)
+
   const res = await fetch(`${API_URL}update`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },

@@ -24,7 +24,6 @@ export default function AdminCendis() {
     try {
       const data = await getAllCendis();
       setCendisList(data);
-      console.log("data: ",data)
     } catch (error) {
       console.error("Error al cargar los cendis:", error);
     }

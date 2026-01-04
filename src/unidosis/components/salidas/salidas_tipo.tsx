@@ -91,12 +91,9 @@ export default function SalidasTipo({ area, cendis, tipo, id_tipo }: Props) {
       };
 
       // 3. Crear la salida (retorna el id_salida)
-      console.log("Creando nueva salida...");
-      console.log("salida enviada al back...  ",salidaData)
+
       const response = await createSalida(salidaData);
       const idSalidaCreada = response.id_salida;
-      
-      console.log("Salida creada con ID:", idSalidaCreada);
 
       // 4. Generar el folio
       const folio = `SAL-${idSalidaCreada.toString().padStart(6, '0')}`;
@@ -129,8 +126,6 @@ export default function SalidasTipo({ area, cendis, tipo, id_tipo }: Props) {
 
       // 8. Cerrar la salida (cambiar editable y pendiente a false)
       await cerrarSalida(idSalidaCreada);
-      console.log("Salida cerrada exitosamente");
-
       // 9. Limpiar el estado
       setLista([]);
       setIsExpanded(false);

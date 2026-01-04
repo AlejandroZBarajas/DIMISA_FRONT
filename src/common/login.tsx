@@ -23,7 +23,6 @@ export default function Login() {
         body: JSON.stringify({ username, password }),
       });
       const data = await res.json();
-      console.log("respuesta completa del backend:", data);
 
       if (!res.ok) {
         throw new Error(data.message || "Error al iniciar sesión");
@@ -39,8 +38,6 @@ export default function Login() {
       const token = data.token
       
       login(token, user);
-
-      console.log("✅ Datos guardados en Context:", { token, user });
 
       switch (data.id_rol){
         case 1:

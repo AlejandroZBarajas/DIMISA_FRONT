@@ -29,7 +29,6 @@ function UnidosisSalidas(){
     const fetchTipos = async () => {
         try{
             const res = await getTipos()
-            console.log(res)
             setTiposSalida(res)
         }catch(error){
             console.error("no se pudieron cargar tipos: ",error)

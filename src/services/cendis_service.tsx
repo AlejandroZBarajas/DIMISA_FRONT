@@ -4,7 +4,7 @@ import type CendisPayload from "../entities/cendis_payload";
 const API_URL = import.meta.env.VITE_API_URL + "cendis/";
 
 export const createCendis = async (payload: CendisPayload): Promise<CendisEntity> => {
-  console.log(payload)
+
   const res = await fetch(`${API_URL}create`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
