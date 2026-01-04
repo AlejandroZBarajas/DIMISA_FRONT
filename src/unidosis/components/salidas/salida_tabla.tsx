@@ -9,19 +9,21 @@ interface Props {
   lista: ItemLista[];
   onCantidadChange: (index: number, cantidad: number) => void;
   onEliminar: (index: number) => void;
-  onUpdate: () => void;
+  toPrint: () => void;
+  isProcessing?: boolean;
 }
 
 export default function SalidaTabla({
   lista,
   onCantidadChange,
   onEliminar,
-  onUpdate,
+  toPrint,
+  isProcessing = false,
 }: Props) {
   if (lista.length === 0) return null;
 
   return (
-    <div className=" ">
+    <div className="">
       <div id="tabla">
         <table className="w-full mt-6 border-collapse border border-gray-300 text-sm">
           <thead className="bg-gray-100">
@@ -50,13 +52,15 @@ export default function SalidaTabla({
                         onCantidadChange(index, nuevaCantidad);
                       }
                     }}
-                    className="w-20 border rounded p-1 text-center"
+                    disabled={isProcessing}
+                    className="w-20 border rounded p-1 text-center disabled:bg-gray-100"
                   />
                 </td>
                 <td className="border border-gray-300 bg-white px-2 py-1 text-center">
                   <button
                     onClick={() => onEliminar(index)}
-                    className="bg-red-500  text-white px-3 py-1 rounded hover:bg-red-600 transition"
+                    disabled={isProcessing}
+                    className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition disabled:bg-gray-400 disabled:cursor-not-allowed"
                   >
                     ✕
                   </button>
@@ -69,10 +73,21 @@ export default function SalidaTabla({
 
       <div className="mt-4">
         <button
-          onClick={onUpdate}
-          className="bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-600 transition"
+          onClick={toPrint}
+          disabled={isProcessing}
+          className="bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-600 transition disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center gap-2"
         >
-          Actualizar
+          {isProcessing ? (
+            <>
+              <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+              Procesando...
+            </>
+          ) : (
+            "Imprimir y cerrar salida"
+          )}
         </button>
       </div>
     </div>

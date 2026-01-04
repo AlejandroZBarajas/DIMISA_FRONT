@@ -5,7 +5,7 @@ interface TemplateData {
   tipo_nombre: string | "";
   folio?: string;
   fecha: string;
-  usuario_nombre: string;
+  usuario_nombre?: string;
   cendis_nombre: string;
   area_nombre?: string;
   lista: {
