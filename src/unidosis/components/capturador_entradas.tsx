@@ -1,22 +1,21 @@
 import { useEffect, useState } from "react";
+import { useAuth } from "../../common/auth/auth_context";
 import { getPendingColectivosByCendis } from "../../services/colectivos_service";
-import type { ColectivoEntity } from "../../entities/colectivo_entity";
 import ColectivoCard from "./colectivos/colectivo_para_entrada";
 import ColectivoParaEntrada from "./colectivos/colectivo_para_entrada";
+import type { ColectivoDTO } from "../../entities/colectivo_DTO";
 
 export default function CapturadorEntradas() {
-  const [colectivos, setColectivos] = useState<ColectivoEntity[]>([]);
+  const {auth} = useAuth()
+  const [colectivos, setColectivos] = useState<ColectivoDTO[]>([]);
   const [loading, setLoading] = useState(true);
 
-  const cendis = sessionStorage.getItem("cnd")
-  const id_cendis = Number(cendis)
+  const id_cendis = auth.user?.cnd!
   useEffect(() => {
     async function fetchData() {
       try {
         const res = await getPendingColectivosByCendis(id_cendis); 
         setColectivos(res ?? []);
-        console.log("res: ",res)
-        console.log("id_cendis: ",id_cendis)
       } catch (err) {
         console.error("Error cargando colectivos:", err);
       } finally {

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useAuth } from "../../../common/auth/auth_context";
 import SalidaTabla from "./salida_tabla";
 import BuscadorMedicamentos from "../colectivos/buscador_medicamentos";
 import type AreaEntity from "../../../entities/area_entity";
@@ -23,6 +24,7 @@ interface Props {
 }
 
 export default function SalidasTipo({ area, cendis, tipo, id_tipo }: Props) {
+  const {auth} = useAuth()
   const [lista, setLista] = useState<ItemLista[]>([]);
   const [isExpanded, setIsExpanded] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
@@ -71,9 +73,8 @@ export default function SalidasTipo({ area, cendis, tipo, id_tipo }: Props) {
     setIsProcessing(true);
 
     try {
-      const id_cendis = Number(sessionStorage.getItem("cnd"));
-      const id_usuario = Number(sessionStorage.getItem("usr"));
-     // const usuario_nombre = sessionStorage.getItem("user_name") || "Usuario";
+      const id_cendis = auth.user?.cnd! 
+      const id_usuario = auth.user?.user_id!
       
       const claves = lista.map(item => ({
         id_medicamento: item.id_medicamento,

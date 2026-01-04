@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useAuth } from "../../../common/auth/auth_context";
 import type { ClaveEntity } from "../../../entities/clave_entity";
 import { createColectivo, addToColectivo } from "../../../services/colectivos_service";
 import SelectorTipo from "../selector_tipo_col";
@@ -23,6 +24,7 @@ interface ColectivosPorTipo {
 }
 
 export default function ColectivoMaker({colectivosExistentes, onColectivoCreado}: ColectivoMakerProps) {
+  const {auth} = useAuth()
   const [tipoSeleccionado, setTipoSeleccionado] = useState<number>();
   const [selected, setSelected] = useState<ClaveEntity | null>(null);
   const [cantidad, setCantidad] = useState<number>(1);
@@ -80,8 +82,8 @@ export default function ColectivoMaker({colectivosExistentes, onColectivoCreado}
       return;
     }
 
-    const user_id = Number(sessionStorage.getItem("usr"));
-    const id_cendis = Number(sessionStorage.getItem("cnd"));
+    const user_id = auth.user?.user_id!
+    const id_cendis = auth.user?.cnd!
 
     if (!user_id) {
       alert("No se encontró el usuario en sesión");
