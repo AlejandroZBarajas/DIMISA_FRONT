@@ -2,6 +2,7 @@ import { useState } from "react";
 import type { ColectivoDTO } from "../../../entities/colectivo_DTO";
 import { Template } from "../../../imprimir/template";
 import { PrintColSal } from "../../../imprimir/printer";
+import { closeColectivo } from "../../../services/colectivos_service";
 
 interface Props {
   colectivo: ColectivoDTO;
@@ -31,6 +32,7 @@ function handleImprimir() {
   });
 
   PrintColSal(html);
+  closeColectivo(colectivo.id_colectivo)
 }
 
   if (!colectivo.claves || colectivo.claves.length === 0) return null;

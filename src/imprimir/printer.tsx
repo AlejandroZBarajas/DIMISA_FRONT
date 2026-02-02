@@ -4,8 +4,13 @@ export function PrintColSal(html: string): void {
     alert("No se pudo abrir la ventana de impresión. Verifica que no esté bloqueada por el navegador.");
     return;
   }
-
+  
   ventana.document.write(html);
   ventana.document.close();
-  ventana.print();
+  
+  ventana.onload = () => {
+    setTimeout(() => {
+      ventana.print();
+    }, 200); 
+  };
 }

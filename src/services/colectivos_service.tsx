@@ -92,3 +92,20 @@ export async function addToColectivo(id_cendis: number, tipo_colectivo:number, d
     throw error
   }
 }
+
+export async function closeColectivo(id_colectivo: number):Promise<void>{
+  try{
+    const response = await fetch(`${API_URL}colectivos/close`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({id_colectivo})
+    })
+    if(!response.ok){
+      throw new Error ("No se pudo cerrar el colectivo")
+    }
+    return await response.json()
+  }catch(error){
+    console.error("error al cerrar: ", error)
+    throw error
+  }
+}
