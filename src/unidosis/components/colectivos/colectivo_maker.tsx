@@ -104,7 +104,7 @@ export default function ColectivoMaker({colectivosExistentes, onColectivoCreado}
   
         try {
           const resultado = await addToColectivo(id_cendis, tipo_id, detalles);
-
+          console.log(resultado)
           alert("Artículos agregados al colectivo existente");
         } catch (error) {
           console.error("Error específico al agregar:", error);
