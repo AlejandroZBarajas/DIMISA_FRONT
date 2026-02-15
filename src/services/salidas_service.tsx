@@ -1,7 +1,7 @@
 import type SalidaEntity  from "../entities/salida_entity";
 import type SalidaDTO from "../entities/salida_DTO";
 
-const API_URL = import.meta.env.VITE_API_URL+"salidas/"
+const API_URL = import.meta.env.VITE_API_URL+"/salidas/"
 
 
 // Define la interfaz para la respuesta

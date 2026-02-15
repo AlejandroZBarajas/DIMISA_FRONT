@@ -10,7 +10,6 @@ interface AuthContextType {
 
 export const AuthContext = createContext<AuthContextType | null>(null);
 
-// Hook personalizado para usar el contexto
 export function useAuth() {
   const context = useContext(AuthContext);
   if (!context) {
@@ -23,7 +22,7 @@ const AUTH_STORAGE_KEY = "auth_data";
 
 function saveAuthToStorage(auth: LoginResponse) {
   try {
-    localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(auth));
+    sessionStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(auth));
   } catch (error) {
     console.error("Error al guardar en localStorage:", error);
   }
@@ -31,7 +30,7 @@ function saveAuthToStorage(auth: LoginResponse) {
 
 function loadAuthFromStorage(): LoginResponse {
   try {
-    const stored = localStorage.getItem(AUTH_STORAGE_KEY);
+    const stored = sessionStorage.getItem(AUTH_STORAGE_KEY);
     if (stored) {
       return JSON.parse(stored);
     }
@@ -43,7 +42,7 @@ function loadAuthFromStorage(): LoginResponse {
 
 function clearAuthFromStorage() {
   try {
-    localStorage.removeItem(AUTH_STORAGE_KEY);
+    sessionStorage.removeItem(AUTH_STORAGE_KEY);
   } catch (error) {
     console.error("Error al limpiar localStorage:", error);
   }

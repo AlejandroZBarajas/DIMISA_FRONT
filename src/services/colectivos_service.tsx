@@ -6,7 +6,7 @@ const API_URL = import.meta.env.VITE_API_URL
 
 export async function createColectivo(data: ColectivoEntity): Promise<ColectivoEntity> {
   try {
-    const response = await fetch(`${API_URL}colectivos/create`, {
+    const response = await fetch(`${API_URL}/colectivos/create`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),

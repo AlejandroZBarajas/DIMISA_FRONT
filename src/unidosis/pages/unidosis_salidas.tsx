@@ -45,6 +45,9 @@ function UnidosisSalidas(){
         <div className="flex flex-col items-center">
             <Header></Header>
             <UnidosisSubheader></UnidosisSubheader>
+            <div>
+                <h2 className="text-red-500 font-bold text-xl">No olvidar calcular las salidas en piezas</h2>
+            </div>
             <div className=" w-full flex">
                 {
                     myAreas.map((area)=>(

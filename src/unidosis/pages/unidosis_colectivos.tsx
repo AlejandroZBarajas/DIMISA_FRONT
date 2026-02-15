@@ -43,6 +43,7 @@ export default function UnidosisColectivos(){
                   <ColectivoCard
                       key={c.id_colectivo} 
                       colectivo={c} 
+                      onColectivoImpreso={fetchColectivos}
                   />
                   ))
               }

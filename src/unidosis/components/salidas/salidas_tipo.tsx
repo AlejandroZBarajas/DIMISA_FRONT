@@ -90,13 +90,11 @@ export default function SalidasTipo({ area, cendis, tipo, id_tipo }: Props) {
         claves
       };
 
-      // 3. Crear la salida (retorna el id_salida)
 
       const response = await createSalida(salidaData);
       const idSalidaCreada = response.id_salida;
 
-      // 4. Generar el folio
-      const folio = `SAL-${idSalidaCreada.toString().padStart(6, '0')}`;
+      const folio = `SAL-${idSalidaCreada.toString().padStart(4, '0')}`;
 
       // 5. Preparar datos para el template
       const templateData = {
@@ -118,15 +116,12 @@ export default function SalidasTipo({ area, cendis, tipo, id_tipo }: Props) {
         }))
       };
 
-      // 6. Generar HTML del documento
       const html = Template(templateData);
 
-      // 7. Imprimir
       PrintColSal(html);
 
-      // 8. Cerrar la salida (cambiar editable y pendiente a false)
       await cerrarSalida(idSalidaCreada);
-      // 9. Limpiar el estado
+
       setLista([]);
       setIsExpanded(false);
 

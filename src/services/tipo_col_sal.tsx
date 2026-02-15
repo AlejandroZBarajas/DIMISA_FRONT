@@ -1,6 +1,6 @@
 import type TipoEntity from "../entities/tipo_entity";
 
-const API_URL = import.meta.env.VITE_API_URL+"tipos"
+const API_URL = import.meta.env.VITE_API_URL+"/tipos"
 
 export const getTipos = async () : Promise<TipoEntity[]> => {
     const res = await fetch (API_URL,{

@@ -1,6 +1,6 @@
 import type CamaEntity from "../entities/cama_entity";
 
-const API_URL = import.meta.env.VITE_API_URL+"camas/"
+const API_URL = import.meta.env.VITE_API_URL+"/camas/"
 
 export const createCamas = async (data: {
   id_area: number;

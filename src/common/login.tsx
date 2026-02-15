@@ -12,7 +12,7 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const API_URL = import.meta.env.VITE_API_URL + "login";
+  const API_URL = import.meta.env.VITE_API_URL + "/login";
 
   const handleLogin = async () => {
     setError("");
@@ -23,6 +23,7 @@ export default function Login() {
         body: JSON.stringify({ username, password }),
       });
       const data = await res.json();
+      console.log(data)
 
       if (!res.ok) {
         throw new Error(data.message || "Error al iniciar sesión");
@@ -33,7 +34,9 @@ export default function Login() {
         nombre_usuario: data.nombre_usuario,
         rol: data.id_rol,
         cnd: data.id_cendis,
+        cndnm: data.cendis,
         ar: data.id_area,
+        arnm: data.area,
       };
       const token = data.token
       

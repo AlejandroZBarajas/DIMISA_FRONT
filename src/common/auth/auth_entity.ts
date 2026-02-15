@@ -3,7 +3,9 @@ export interface AuthUser {
   nombre_usuario: string;
   rol: number; 
   cnd: number | null;
+  cndnm: string
   ar: number | null;
+  arnm: string
 }
 
 export interface LoginResponse {

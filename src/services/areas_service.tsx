@@ -1,6 +1,6 @@
 import type AreaEntity from "../entities/area_entity";
 
-const API_URL = import.meta.env.VITE_API_URL+"areas"
+const API_URL = import.meta.env.VITE_API_URL+"/areas"
 
 export const getAreas = async (): Promise<AreaEntity[]> => {
   const res = await fetch(`${API_URL}`,{});
