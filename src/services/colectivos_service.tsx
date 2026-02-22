@@ -26,7 +26,7 @@ export async function createColectivo(data: ColectivoEntity): Promise<ColectivoE
 
 export async function getColectivosByCendis(id_cendis: number): Promise<ColectivoDTO[]> {
   try {
-    const response = await fetch(`${API_URL}colectivos/by-cendis`, {
+    const response = await fetch(`${API_URL}/colectivos/by-cendis`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ id_cendis }),
@@ -43,7 +43,7 @@ export async function getColectivosByCendis(id_cendis: number): Promise<Colectiv
 
 export async function getPendingColectivosByCendis(id_cendis: number): Promise<ColectivoDTO[]> {
   try {
-    const response = await fetch(`${API_URL}colectivos/pending`, {
+    const response = await fetch(`${API_URL}/colectivos/pending`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ id_cendis }),
@@ -60,7 +60,7 @@ export async function getPendingColectivosByCendis(id_cendis: number): Promise<C
 
 export async function getColectivosEditablesByCendis(id_cendis: number): Promise<ColectivoDTO[]> {
   try {
-    const response = await fetch(`${API_URL}colectivos/editables`, {
+    const response = await fetch(`${API_URL}/colectivos/editables`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ id_cendis }),
@@ -77,7 +77,7 @@ export async function getColectivosEditablesByCendis(id_cendis: number): Promise
 
 export async function addToColectivo(id_cendis: number, tipo_colectivo:number, detalles :ColectivoDetalleEntity[]):Promise <string>{
   try{
-    const response = await fetch (`${API_URL}colectivos/add`,{
+    const response = await fetch (`${API_URL}/colectivos/add`,{
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({id_cendis, tipo_colectivo, detalles }),
@@ -95,7 +95,7 @@ export async function addToColectivo(id_cendis: number, tipo_colectivo:number, d
 
 export async function closeColectivo(id_colectivo: number):Promise<void>{
   try{
-    const response = await fetch(`${API_URL}colectivos/close`, {
+    const response = await fetch(`${API_URL}/colectivos/close`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({id_colectivo})
