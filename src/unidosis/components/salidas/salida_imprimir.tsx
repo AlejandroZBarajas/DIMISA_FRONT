@@ -1,12 +1,13 @@
 import { useState } from "react";
-import type { ColectivoEntity } from "../../entities/colectivo_entity";
+
 import logo_header from '../../assets/logo_header.png'
+import type SalidaDTO from "../../../entities/salida_DTO";
 
 interface Props {
-  colectivo: ColectivoEntity;
+  salida: SalidaDTO;
 }
 
-export default function ColectivoParaImprimir({ colectivo }: Props) {
+export default function SalidaParaImprimir({ salida }: Props) {
   const [open, setOpen] = useState(false);
 
 function handleImprimir() {
@@ -119,10 +120,10 @@ function handleImprimir() {
             <p class="firma-texto">INSTITUTO DE SALUD</p>
           </div>
           <div class="header-box">
-            <h2>Colectivo: ${colectivo.folio}</h2>
-            <p><strong>Fecha de captura:</strong> ${colectivo.fecha}</p>
+            <h2>Colectivo: ${salida.folio}</h2>
+            <p><strong>Fecha de captura:</strong> ${salida.fecha}</p>
             <p><strong>Cendis que solicita:</strong></p>
-            <p><strong></strong> ${colectivo.cendis}</p>
+            <p><strong></strong> ${salida.area}</p>
             
           </div>
         </div>
@@ -137,7 +138,7 @@ function handleImprimir() {
             </tr>
           </thead>
           <tbody>
-          ${colectivo.claves.map(d => `
+          ${salida.claves.map(d => `
                         <tr>
                           <td>${d.clave}</td>
                           <td>${d.descripcion}</td>
@@ -150,7 +151,7 @@ function handleImprimir() {
         <div class="firmas-container">
           <div class="firma-box">
             <div class="firma-linea"></div>
-            <p class="firma-texto"><strong>Generado por:</strong> ${colectivo.nombre_usuario}</p>
+            <p class="firma-texto"><strong>Generado por:</strong> ${salida.usuario}</p>
           </div>
           <div class="firma-box">
             <div class="firma-linea"></div>
@@ -171,9 +172,9 @@ function handleImprimir() {
         onClick={() => setOpen(!open)}
       >
         <div>
-          <h3 className="font-bold text-lg">Folio: {colectivo.folio}</h3>
-          <p>Fecha: {colectivo.fecha}</p>
-          <p>Generado por: {colectivo.nombre_usuario}</p>
+          <h3 className="font-bold text-lg">Folio: {salida.folio}</h3>
+          <p>Fecha: {salida.fecha}</p>
+          <p>Generado por: {salida.usuario}</p>
         </div>
         <button className="text-sm bg-blue-600 text-white px-3 py-1 rounded">
           {open ? "Cerrar" : "Abrir"}
@@ -191,8 +192,8 @@ function handleImprimir() {
               </tr>
             </thead>
             <tbody>
-              {colectivo.claves.map((d) => (
-                <tr key={d.id_detalle}>
+              {salida.claves.map((d) => (
+                <tr key={d.id_salida_detalle}>
                   <td className="border p-2">{d.clave}</td>
                   <td className="border p-2">{d.descripcion}</td>
                   <td className="border p-2 text-center">{d.cantidad}</td>

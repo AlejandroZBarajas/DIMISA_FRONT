@@ -16,14 +16,7 @@ export default function AdminUsers() {
   useEffect(() => {
     getUsers().then(setUsers);
   }, []);
-
-/*   const handleCreateUser = async (user: UserEntity) => {
-    await createUser(user);
-    const updated = await getUsers();
-    setUsers(updated);
-    setShowModal(false);
-  }; */
-
+  
     const handleDeleteUser = async (id_usuario: number) => {
       const confirmar = window.confirm("¿Seguro que deseas eliminar este usuario?");
       if (!confirmar) return;

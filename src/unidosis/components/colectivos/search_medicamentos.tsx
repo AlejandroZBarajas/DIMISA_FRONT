@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { useSearchClaves } from "../../hooks/useSearchClavesHook"
+import { useSearchClaves } from "../../../hooks/useSearchClavesHook"
 
 export default function SearchMedicamentos() {
   const [query, setQuery] = useState("")

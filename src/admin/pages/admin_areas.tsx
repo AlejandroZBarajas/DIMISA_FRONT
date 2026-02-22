@@ -53,7 +53,7 @@ function AdminAreas(){
     }
 
     const handleDelete = async (id: number) => {
-        console.log(id)
+        
         try{
             await deleteArea(id)
             setAreas(areas.filter((a) => a.id_area !== id))

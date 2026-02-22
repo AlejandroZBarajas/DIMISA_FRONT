@@ -13,65 +13,65 @@ import UnidosisEntradas from "./unidosis/pages/unidosis_entradas";
 import UnidosisSalidas from "./unidosis/pages/unidosis_salidas";
 
 export default function App() {
-
-  const userRol=sessionStorage.getItem("rl")
-
   return (
     <Routes>
 
       <Route path="/" element={<Login/>}/>
 
       <Route path="/admin/users" element={
-        <ProtectedRoute allowedRoles={["1", "2"]} userRole={userRol}>
+        <ProtectedRoute allowedRoles={[1, 2]} >
             <AdminUsers />
         </ProtectedRoute>} />
 
       <Route path="/admin/camas" element={
-        <ProtectedRoute allowedRoles={["1", "2"]} userRole={userRol}>
+        <ProtectedRoute allowedRoles={[1, 2]} >
             <AdminCamas />
         </ProtectedRoute>} />
 
       <Route path="/admin/cendis" element={
-        <ProtectedRoute allowedRoles={["1", "2"]} userRole={userRol}>
+        <ProtectedRoute allowedRoles={[1, 2]} >
             <AdminCendis />
         </ProtectedRoute>} />
 
       <Route path="/admin/areas" element={
-        <ProtectedRoute allowedRoles={["1", "2"]} userRole={userRol}>
+                <ProtectedRoute allowedRoles={[1, 2]} >
+
             <AdminAreas />
         </ProtectedRoute>} />
 
       <Route path="/admin/claves" element={
-        <ProtectedRoute allowedRoles={["1", "2"]} userRole={userRol}>
+                <ProtectedRoute allowedRoles={[1, 2]} >
+
             <AdminClaves />
         </ProtectedRoute>} />
 {/*PAGINAS DE ENFERMERÍA */}
       <Route path="/enfermeria/camas" element={
-        <ProtectedRoute allowedRoles={["5"]} userRole={userRol}>
+        <ProtectedRoute allowedRoles={[5]} >
             <EnfermeriaCamas />
         </ProtectedRoute>} />
 
-        <Route path="/enfermeria/solicitar" element={
-        <ProtectedRoute allowedRoles={["5"]} userRole={userRol}>
+      <Route path="/enfermeria/solicitar" element={
+                <ProtectedRoute allowedRoles={[5]} >
+
             <EnfermeriaSolicitar />
         </ProtectedRoute>} /> 
 
 {/*PAGINAS DE UNIDOSIS */}
       <Route path="/unidosis/colectivos" element={
-        <ProtectedRoute allowedRoles={["6"]} userRole={userRol}>
+        <ProtectedRoute allowedRoles={[6]} >
             <UnidosisColectivos />
         </ProtectedRoute>} />
 
-  <Route path="/unidosis/entradas" element={
-    <ProtectedRoute allowedRoles={["6"]} userRole={userRol} >
-      <UnidosisEntradas/>
-    </ProtectedRoute> }/>
-    
-  <Route path="/unidosis/salidas" element={
-    <ProtectedRoute allowedRoles={["6"]} userRole={userRol} >
-      <UnidosisSalidas/>
-    </ProtectedRoute> }/>
-    </Routes>
+      <Route path="/unidosis/entradas" element={
+                <ProtectedRoute allowedRoles={[6]} >
+          <UnidosisEntradas/>
+        </ProtectedRoute> }/>
+        
+      <Route path="/unidosis/salidas" element={
+                <ProtectedRoute allowedRoles={[6]} >
+          <UnidosisSalidas/>
+        </ProtectedRoute> }/>
+        </Routes>
   )
 }
 

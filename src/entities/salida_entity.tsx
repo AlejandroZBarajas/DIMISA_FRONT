@@ -4,5 +4,7 @@ export default interface SalidaEntity {
     id_area: number
     id_cendis: number
     id_usuario : number
+    tipo_id : number
+    fecha: string; 
     claves: SalidaDetalleEntity[]
 }

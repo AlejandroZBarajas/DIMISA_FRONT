@@ -1,6 +1,6 @@
 import type CamaEntity from "../entities/cama_entity";
 
-const API_URL = import.meta.env.VITE_API_URL+"camas/"
+const API_URL = import.meta.env.VITE_API_URL+"/camas/"
 
 export const createCamas = async (data: {
   id_area: number;
@@ -70,7 +70,7 @@ export const getFreeCamasbyArea = async (id_area:number): Promise<CamaEntity[]> 
 }
 
 export const occupyCama = async (cama: CamaEntity): Promise<void> => {
-  console.log(cama)
+
   const res = await fetch(`${API_URL}update`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
