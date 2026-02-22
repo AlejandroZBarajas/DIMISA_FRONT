@@ -1,19 +1,15 @@
 import { useNavigate } from "react-router-dom"
+import { useAuth } from "./auth/auth_context"
 import logo from './../assets/LOGO.png'
 
 export default function Header(){
-    const rol = sessionStorage.getItem("rl")
+    const {auth, logout} = useAuth()
 
+    const rol = auth.user?.rol
     const navigate =useNavigate()
 
-    function Logout(){
-        sessionStorage.setItem("rl","")
-        sessionStorage.setItem("ar", "")
-        sessionStorage.setItem("cnd", "")
-        sessionStorage.setItem("usr", "")
-    }
     function byebye(){
-        Logout()
+        logout()
         navigate("/")
     } 
 
@@ -27,7 +23,7 @@ export default function Header(){
             </div>
             <div className="w-3/12 flex justify-end">
             {
-                rol!=="" &&(
+                rol!==undefined &&(
 
                     <h4 className='text-white p-4' onClick={byebye}>Cerrar sesión</h4>
                 )

@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useAuth } from "../../common/auth/auth_context";
 import type { ColectivoDTO } from "../../entities/colectivo_DTO";
 import Header from "../../common/header";
 import UnidosisSubheader from "../components/unidosis_subheader";
@@ -8,12 +9,11 @@ import { getColectivosEditablesByCendis } from "../../services/colectivos_servic
 import ColectivoCard from "../components/colectivos/colectivo_card";
 
 export default function UnidosisColectivos(){
+  const {auth} = useAuth()
   const [colectivos, setColectivos] = useState<ColectivoDTO[]>([]);
 
-  const cendis = sessionStorage.getItem("cnd")
-  const id_cendis = Number(cendis)
+  const id_cendis = auth.user?.cnd!
 
-  
   const fetchColectivos = async () => {
     try {
       const res = await getColectivosEditablesByCendis(id_cendis); 
@@ -43,6 +43,7 @@ export default function UnidosisColectivos(){
                   <ColectivoCard
                       key={c.id_colectivo} 
                       colectivo={c} 
+                      onColectivoImpreso={fetchColectivos}
                   />
                   ))
               }

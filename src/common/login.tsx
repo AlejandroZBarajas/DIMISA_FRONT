@@ -1,21 +1,18 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "./auth/auth_context";
+import type { AuthUser } from "./auth/auth_entity";
 import Header from "./header";
 
 
 export default function Login() {
-  /* sessionStorage.setItem("rl", "")
-  sessionStorage.setItem("ar", "")
-  sessionStorage.setItem("cnd", "")
-  sessionStorage.setItem("usr", "") */
-
+  const { login } = useAuth();
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-
-  const API_URL = import.meta.env.VITE_API_URL + "login";
+  const API_URL = import.meta.env.VITE_API_URL + "/login";
 
   const handleLogin = async () => {
     setError("");
@@ -26,18 +23,24 @@ export default function Login() {
         body: JSON.stringify({ username, password }),
       });
       const data = await res.json();
+      console.log(data)
 
       if (!res.ok) {
-        const data = await res.json();
-        
         throw new Error(data.message || "Error al iniciar sesión");
       }
-    await new Promise(resolve => setTimeout(resolve, 100));  
-    sessionStorage.setItem("rl", data.id_rol)
-    sessionStorage.setItem("ar", data.id_area)
-    sessionStorage.setItem("cnd", data.id_cendis)
-    sessionStorage.setItem("usr", data.id_usuario)
-    await new Promise(resolve => setTimeout(resolve, 100));
+
+      const user: AuthUser = {
+        user_id: data.id_usuario,
+        nombre_usuario: data.nombre_usuario,
+        rol: data.id_rol,
+        cnd: data.id_cendis,
+        cndnm: data.cendis,
+        ar: data.id_area,
+        arnm: data.area,
+      };
+      const token = data.token
+      
+      login(token, user);
 
       switch (data.id_rol){
         case 1:

@@ -1,6 +1,6 @@
 import type AreaEntity from "../entities/area_entity";
 
-const API_URL = import.meta.env.VITE_API_URL+"areas"
+const API_URL = import.meta.env.VITE_API_URL+"/areas"
 
 export const getAreas = async (): Promise<AreaEntity[]> => {
   const res = await fetch(`${API_URL}`,{});
@@ -9,8 +9,6 @@ export const getAreas = async (): Promise<AreaEntity[]> => {
 };
 
 export const createArea = async (area: AreaEntity): Promise<AreaEntity> => {
-  console.log(area)
-
   const res = await fetch(`${API_URL}/create`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -48,7 +46,7 @@ export const getFreeAreas = async (): Promise<AreaEntity[]> =>{
 }
 
 export const getAreasByCendis = async (id_cendis: number): Promise <AreaEntity[]> => {
-  console.log("id_cendis: ",id_cendis)
+
   const res = await fetch(`${API_URL}/cendis`,{
     method: "POST",
     headers: { "Content-Type": "application/json" },

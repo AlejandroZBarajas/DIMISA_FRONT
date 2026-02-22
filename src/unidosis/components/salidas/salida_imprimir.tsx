@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import logo_header from '../../assets/logo_header.png'
-import type SalidaDTO from "../../entities/salida_DTO";
+import type SalidaDTO from "../../../entities/salida_DTO";
 
 interface Props {
   salida: SalidaDTO;

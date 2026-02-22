@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useAuth } from "../../../common/auth/auth_context";
 import type { ClaveEntity } from "../../../entities/clave_entity";
 import { createColectivo, addToColectivo } from "../../../services/colectivos_service";
 import SelectorTipo from "../selector_tipo_col";
@@ -23,6 +24,7 @@ interface ColectivosPorTipo {
 }
 
 export default function ColectivoMaker({colectivosExistentes, onColectivoCreado}: ColectivoMakerProps) {
+  const {auth} = useAuth()
   const [tipoSeleccionado, setTipoSeleccionado] = useState<number>();
   const [selected, setSelected] = useState<ClaveEntity | null>(null);
   const [cantidad, setCantidad] = useState<number>(1);
@@ -80,8 +82,8 @@ export default function ColectivoMaker({colectivosExistentes, onColectivoCreado}
       return;
     }
 
-    const user_id = sessionStorage.getItem("usr");
-    const id_cendis = sessionStorage.getItem("cnd");
+    const user_id = auth.user?.user_id!
+    const id_cendis = auth.user?.cnd!
 
     if (!user_id) {
       alert("No se encontró el usuario en sesión");
@@ -99,17 +101,14 @@ export default function ColectivoMaker({colectivosExistentes, onColectivoCreado}
       }))
 
       if(existeColectivoAbierto){
-        console.log("📦 Intentando agregar al colectivo existente");
-        console.log("tipo_id:", tipo_id);
-        console.log("detalles:", detalles);
-         
+  
         try {
-          const resultado = await addToColectivo(tipo_id, detalles);
-          console.log("✅ Respuesta del servidor:", resultado);
+          const resultado = await addToColectivo(id_cendis, tipo_id, detalles);
+          console.log(resultado)
           alert("Artículos agregados al colectivo existente");
         } catch (error) {
-          console.error("❌ Error específico al agregar:", error);
-          throw error; // Re-lanza para que lo capture el catch externo
+          console.error("Error específico al agregar:", error);
+          throw error;
         }
       } else {
         const colectivo = {

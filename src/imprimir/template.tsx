@@ -5,7 +5,7 @@ interface TemplateData {
   tipo_nombre: string | "";
   folio?: string;
   fecha: string;
-  usuario_nombre: string;
+  usuario_nombre?: string;
   cendis_nombre: string;
   area_nombre?: string;
   lista: {
@@ -74,12 +74,19 @@ export function Template(data: TemplateData): string {
             margin-top: 60px;
             page-break-inside: avoid;
           }
-          .headers-container {
-            display: flex;
-            justify-content: space-between;
-            page-break-inside: avoid;
+          header{
+            display:flex;
           }
-          .firma-box, .header-box {
+          .header-box {
+            width: 33%; 
+            padding: 8px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: center; 
+            align-items: center;     
+          }
+          .firma-box {
             width: 45%;
             display: flex;
             flex-direction: column;
@@ -110,7 +117,7 @@ export function Template(data: TemplateData): string {
       
       <body>
         <header>
-          <div class="headers-container">
+          
             <div class="header-box">
               <img src="${logo_header}">
             </div>
@@ -124,11 +131,10 @@ export function Template(data: TemplateData): string {
             <div class="header-box">
               <h2>${data.folio}</h2>
               <p><strong>Fecha:</strong> ${data.fecha}</p>
-              <p><strong></strong> ${data.encabezado}" de "${data.tipo_nombre}</p>
-              <p><strong>Área:</strong> ${data.area_nombre}</p>
+              <p><strong> ${data.encabezado} de: ${data.tipo_nombre}</strong></p>
+              ${data.area_nombre != null ? `<p><strong>Área:</strong> ${data.area_nombre}</p>` : ''}
               <p><strong>Cendis:</strong> ${data.cendis_nombre}</p>
             </div>
-          </div>
         </header>
         
         <table>

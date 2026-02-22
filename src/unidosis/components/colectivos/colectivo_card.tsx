@@ -2,20 +2,23 @@ import { useState } from "react";
 import type { ColectivoDTO } from "../../../entities/colectivo_DTO";
 import { Template } from "../../../imprimir/template";
 import { PrintColSal } from "../../../imprimir/printer";
+import { closeColectivo } from "../../../services/colectivos_service";
 
 interface Props {
   colectivo: ColectivoDTO;
   onCantidadChange?: (index: number, cantidad: number) => void;
   onEliminar?: (index: number) => void;
   onGenerar?: () => void;
+  onColectivoImpreso?: () => void;
 }
 
 export default function ColectivoCard({
   colectivo,
+  onColectivoImpreso
 }: Props) {
   const [open, setOpen] = useState(true);
 
-function handleImprimir() {
+async function handleImprimir() {
   const html = Template({
     encabezado: "Colectivo",
     tipo_nombre: colectivo.tipo,
@@ -31,6 +34,17 @@ function handleImprimir() {
   });
 
   PrintColSal(html);
+  //closeColectivo(colectivo.id_colectivo)
+
+  try {
+      await closeColectivo(colectivo.id_colectivo);
+      // Llamar al callback para actualizar la lista en el padre
+      if (onColectivoImpreso) {
+        onColectivoImpreso();
+      }
+    } catch (error) {
+      console.error("Error al cerrar colectivo:", error);
+    }
 }
 
   if (!colectivo.claves || colectivo.claves.length === 0) return null;

@@ -1,6 +1,6 @@
 import type UserEntity from "../entities/user_entity";
 
-const API_URL = import.meta.env.VITE_API_URL + "users/";
+const API_URL = import.meta.env.VITE_API_URL + "/users/";
 
 export async function getUsers(): Promise<UserEntity[]> {
   const res = await fetch(`${API_URL}all`, {

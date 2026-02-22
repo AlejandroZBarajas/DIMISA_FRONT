@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useAuth } from "../../common/auth/auth_context";
 import type CamaEntity from "../../entities/cama_entity";
 import { getCamasByArea, occupyCama } from "../../services/camas_service";
 import CamaCard from "../components/cama_card";
@@ -7,11 +8,13 @@ import EnfermeriaSubheader from "../components/enfermeria_subheader";
 import CamaForm from "../components/cama_form";
 
 function EnfermeriaCamas() {
+  const {auth} = useAuth()
   const [camas, setCamas] = useState<CamaEntity[]>([]);
   const [selectedCama, setSelectedCama] = useState<CamaEntity | null>(null);
   const [showForm, setShowForm] = useState(false);
 
-  const id_area = Number(sessionStorage.getItem("ar"));
+
+  const id_area = auth.user?.ar!
 
   const fetchCamas = async () => {
     try {
