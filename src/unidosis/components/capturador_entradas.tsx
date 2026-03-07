@@ -16,6 +16,7 @@ export default function CapturadorEntradas() {
       try {
         const res = await getPendingColectivosByCendis(id_cendis); 
         setColectivos(res ?? []);
+        console.log("Colectivos pendientes:", res);
       } catch (err) {
         console.error("Error cargando colectivos:", err);
       } finally {
@@ -30,6 +31,7 @@ export default function CapturadorEntradas() {
 
   return (
     <div className="p-4">
+      <h1 className="text-red-600 text-xl font-bold">RECUERDE CAPTURAR ENTRADAS POR PIEZAS</h1>
       <h2 className="text-xl font-bold mb-4">Colectivos Pendientes de Captura</h2>
 
       {colectivos.length === 0 ? (

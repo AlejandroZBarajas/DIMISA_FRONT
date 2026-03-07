@@ -51,7 +51,7 @@ export default function ColectivoParaEntrada({ colectivo }: Props) {
 
   return (
     <div className="border rounded-lg shadow p-4 mb-4">
-      <h1>colectivo para entrada</h1>
+      <h1>Colectivo de: {colectivo.tipo}</h1>
       <div
         className="flex justify-between items-center cursor-pointer"
         onClick={() => setOpen(!open)}
@@ -59,7 +59,7 @@ export default function ColectivoParaEntrada({ colectivo }: Props) {
         <div>
           <h3 className="font-bold text-lg">{colectivo.folio}</h3>
           <p>Fecha: {colectivo.fecha}</p>
-          <p>ID usuario: {colectivo.id_user}</p>
+          <p>Generado por: {colectivo.nombre_usuario}</p>
         </div>
         <button className="text-sm bg-blue-600 text-white px-3 py-1 rounded">
           {open ? "Cerrar" : "Abrir"}

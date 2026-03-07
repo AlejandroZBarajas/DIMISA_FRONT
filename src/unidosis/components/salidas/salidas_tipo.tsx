@@ -5,7 +5,7 @@ import BuscadorMedicamentos from "../colectivos/buscador_medicamentos";
 import type AreaEntity from "../../../entities/area_entity";
 import type { ClaveEntity } from "../../../entities/clave_entity";
 import { createSalida, cerrarSalida } from "../../../services/salidas_service";
-import { Template } from "../../../imprimir/template";
+import { TemplateSalida } from "../../../imprimir/template_salida";
 import { PrintColSal } from "../../../imprimir/printer";
 import type SalidaEntity from "../../../entities/salida_entity";
 
@@ -98,15 +98,15 @@ export default function SalidasTipo({ area, cendis, tipo, id_tipo }: Props) {
 
       // 5. Preparar datos para el template
       const templateData = {
-        encabezado: "SALIDA",
+        encabezado: "Salida",
         tipo_nombre: tipo,
+        usuario_nombre: sessionStorage.getItem("auth_data") ? JSON.parse(sessionStorage.getItem("auth_data")!).user.nombre_usuario : "",
         folio: folio,
         fecha: new Date().toLocaleDateString('es-MX', {
           year: 'numeric',
           month: 'long',
           day: 'numeric'
         }),
-       // usuario_nombre: usuario_nombre,
         cendis_nombre: cendis,
         area_nombre: area.nombre_area,
         lista: lista.map(item => ({
@@ -116,7 +116,7 @@ export default function SalidasTipo({ area, cendis, tipo, id_tipo }: Props) {
         }))
       };
 
-      const html = Template(templateData);
+      const html = TemplateSalida(templateData);
 
       PrintColSal(html);
 

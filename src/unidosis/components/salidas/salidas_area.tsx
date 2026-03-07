@@ -8,7 +8,10 @@ interface Props{
 }
 
 export default function SalidasArea({area, tipos}:Props){
-  const cendis = "Urgencias" // O puedes obtenerlo del sessionStorage
+  const authData = JSON.parse(sessionStorage.getItem("auth_data") || "{}");
+  const cendis = authData?.user?.cndnm || null;
+
+  console.log(cendis);
 
   return (
     <div className="mw-1/4 w-[580px] h-fit max-w-4xl mx-auto p-4 w-1/4 border-2 p-1 m-2 rounded-xl">

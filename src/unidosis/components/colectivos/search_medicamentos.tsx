@@ -21,7 +21,7 @@ export default function SearchMedicamentos() {
       {!loading && results.length > 0 && (
         <table>
           <thead>
-          <tr>
+            <tr>
               <th className="border border-gray-300 px-2 py-1 text-left">Clave</th>
               <th className="border border-gray-300 px-2 py-1 text-left">Descripción</th>
             </tr>

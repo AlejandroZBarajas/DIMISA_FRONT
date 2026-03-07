@@ -1,6 +1,6 @@
 import { useState } from "react";
 import type { ColectivoDTO } from "../../../entities/colectivo_DTO";
-import { Template } from "../../../imprimir/template";
+import { TemplateColectivo } from "../../../imprimir/template_colectivo";
 import { PrintColSal } from "../../../imprimir/printer";
 import { closeColectivo } from "../../../services/colectivos_service";
 
@@ -19,12 +19,12 @@ export default function ColectivoCard({
   const [open, setOpen] = useState(true);
 
 async function handleImprimir() {
-  const html = Template({
+  const html = TemplateColectivo({
     encabezado: "Colectivo",
     tipo_nombre: colectivo.tipo,
+    usuario_nombre: colectivo.nombre_usuario,
     folio: colectivo.folio,
     fecha: colectivo.fecha,
-    usuario_nombre: colectivo.nombre_usuario,
     cendis_nombre: colectivo.cendis,
     lista: colectivo.claves.map(item => ({
       clave: item.clave ?? "",

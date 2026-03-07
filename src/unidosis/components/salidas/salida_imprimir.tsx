@@ -133,7 +133,7 @@ function handleImprimir() {
             <tr>
               <th>Clave</th>
               <th>Descripción</th>
-              <th class="cantidades" >Cantidad solicitada</th>
+              /* <th class="cantidades" >Cantidad solicitada</th> */
               <th class="cantidades" >Cantidad surtida</th>
             </tr>
           </thead>
