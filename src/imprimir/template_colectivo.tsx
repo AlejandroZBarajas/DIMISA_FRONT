@@ -5,9 +5,9 @@ interface TemplateData {
   tipo_nombre: string | "";
   folio?: string;
   fecha: string;
-  usuario_nombre?: string;
+  usuario_nombre: string;
   cendis_nombre: string;
-  area_nombre?: string;
+  //area_nombre: string;
   lista: {
     clave: string | "";
     descripcion: string |"";
@@ -15,7 +15,7 @@ interface TemplateData {
   }[];
 }
 
-export function Template(data: TemplateData): string {
+export function TemplateColectivo(data: TemplateData): string {
   //const tituloDocumento = `${data.encabezado}" "${data.folio}`
 
   return `
@@ -132,7 +132,7 @@ export function Template(data: TemplateData): string {
               <h2>${data.folio}</h2>
               <p><strong>Fecha:</strong> ${data.fecha}</p>
               <p><strong> ${data.encabezado} de: ${data.tipo_nombre}</strong></p>
-              ${data.area_nombre != null ? `<p><strong>Área:</strong> ${data.area_nombre}</p>` : ''}
+              
               <p><strong>Cendis:</strong> ${data.cendis_nombre}</p>
             </div>
         </header>

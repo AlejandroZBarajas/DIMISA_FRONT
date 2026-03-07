@@ -63,15 +63,15 @@ export default function App() {
         </ProtectedRoute>} />
 
       <Route path="/unidosis/entradas" element={
-                <ProtectedRoute allowedRoles={[6]} >
+        <ProtectedRoute allowedRoles={[6]} >
           <UnidosisEntradas/>
         </ProtectedRoute> }/>
         
       <Route path="/unidosis/salidas" element={
-                <ProtectedRoute allowedRoles={[6]} >
+        <ProtectedRoute allowedRoles={[6]} >
           <UnidosisSalidas/>
         </ProtectedRoute> }/>
-        </Routes>
+      </Routes>
   )
 }
 

@@ -30,8 +30,6 @@ export async function createSalida(data: SalidaEntity): Promise<CreateSalidaResp
   }
 }
 
-
-
 export async function getSalidasEditablesByCendis(id_cendis: number): Promise<SalidaDTO[]> {
   try {
     const response = await fetch(`${API_URL}abiertas`, {

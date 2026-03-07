@@ -13,6 +13,7 @@ export default function Login() {
   const [error, setError] = useState("");
 
   const API_URL = import.meta.env.VITE_API_URL + "/login";
+  console.log(API_URL)
 
   const handleLogin = async () => {
     setError("");
