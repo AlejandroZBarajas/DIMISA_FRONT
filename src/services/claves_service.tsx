@@ -17,3 +17,11 @@ export async function SearchClaves(query: string): Promise<SearchResponse> {
 
   return res.json()
 }
+
+export async function SearchInInventory(query: string, cendisId: number) {
+  const response = await fetch(
+    `${API_URL}/medicamentos/inventory/search?q=${encodeURIComponent(query)}&cendis=${cendisId}`
+  )
+  if (!response.ok) throw new Error("Error al buscar en inventario")
+  return response.json()
+}
