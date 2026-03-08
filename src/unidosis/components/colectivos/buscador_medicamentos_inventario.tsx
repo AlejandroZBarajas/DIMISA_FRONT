@@ -1,17 +1,18 @@
 import { useState } from "react";
 import { useSearchInInventory } from "../../../hooks/useSearchInInventoryHook";
-import type { ClaveEntity } from "../../../entities/clave_entity";
+import type { ClaveInventarioEntity } from "../../../entities/clave_inventario_entity";
 
 interface BuscadorInventarioProps {
   cendisId: number;
-  onSelect: (clave: ClaveEntity) => void;
+  onSelect: (clave: ClaveInventarioEntity) => void;
 }
 
 export default function BuscadorInventario({ cendisId, onSelect }: BuscadorInventarioProps) {
   const [query, setQuery] = useState("");
   const { results, loading, error } = useSearchInInventory(query, cendisId);
 
-  const handleSelect = (item: ClaveEntity) => {
+  const handleSelect = (item: ClaveInventarioEntity) => {
+    if (item.cantidad_actual === 0) return
     onSelect(item);
     setQuery("");
   };
@@ -31,13 +32,24 @@ export default function BuscadorInventario({ cendisId, onSelect }: BuscadorInven
           {loading && <p className="p-2 text-gray-500">Buscando...</p>}
           {error && <p className="p-2 text-red-500">{error}</p>}
           {!loading &&
-            results.map((clave) => (
+            results
+            .filter((clave) => clave.cantidad_actual !== undefined && clave.cantidad_actual > 0)    
+            .map((clave) => (
               <div
                 key={clave.id_medicamento}
                 onClick={() => handleSelect(clave)}
-                className="p-2 hover:bg-blue-50 cursor-pointer"
-              >
-                <strong>{clave.clave_med}</strong>
+                className={`p-2 cursor-pointer ${
+                    clave.cantidad_actual === 0 
+                    ? "opacity-50 cursor-not-allowed bg-gray-50" 
+                    : "hover:bg-blue-50"
+                    }`}
+                >
+                <div className="flex justify-between items-center">
+                    <strong>{clave.clave_med}</strong>
+                    <span className={`text-xs px-2 py-0.5 rounded-full font-medium `}>
+                    Stock: {clave.cantidad_actual}
+                    </span>
+                </div>
                 <p className="text-sm text-gray-600">{clave.descripcion}</p>
               </div>
             ))}

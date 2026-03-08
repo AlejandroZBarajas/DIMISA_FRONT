@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react"
 import { SearchInInventory } from "../services/claves_service"
-import type { ClaveEntity } from "../entities/clave_entity"
+import type { ClaveInventarioEntity } from "../entities/clave_inventario_entity"
 
 export function useSearchInInventory(query: string, cendisId: number) {
-  const [results, setResults] = useState<ClaveEntity[]>([])
+  const [results, setResults] = useState<ClaveInventarioEntity[]>([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 

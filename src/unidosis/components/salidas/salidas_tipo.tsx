@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { useAuth } from "../../../common/auth/auth_context";
 import SalidaTabla from "./salida_tabla";
-import BuscadorMedicamentos from "../colectivos/buscador_medicamentos";
 import type AreaEntity from "../../../entities/area_entity";
 import type { ClaveEntity } from "../../../entities/clave_entity";
 import { createSalida, cerrarSalida } from "../../../services/salidas_service";
 import { TemplateSalida } from "../../../imprimir/template_salida";
 import { PrintColSal } from "../../../imprimir/printer";
 import type SalidaEntity from "../../../entities/salida_entity";
+import BuscadorInventario from "../colectivos/buscador_medicamentos_inventario";
 
 interface ItemLista {
   id_medicamento: number;
@@ -175,7 +175,7 @@ export default function SalidasTipo({ area, cendis, tipo, id_tipo }: Props) {
       {/* Contenido expandible */}
       {isExpanded && (
         <div className="mt-3">
-          <BuscadorMedicamentos onSelect={handleSelectMedicamento} />
+          <BuscadorInventario cendisId={auth.user?.cnd!} onSelect={handleSelectMedicamento} />
           
           <SalidaTabla
             lista={lista}
