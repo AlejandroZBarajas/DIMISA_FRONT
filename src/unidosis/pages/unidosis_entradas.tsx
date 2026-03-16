@@ -7,6 +7,7 @@ function UnidosisEntradas(){
     return(
         <div>
             <Header></Header>
+            
             <UnidosisSubheader></UnidosisSubheader>
             <CapturadorEntradas></CapturadorEntradas>
         </div>
