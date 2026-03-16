@@ -12,32 +12,18 @@ export default function Header(){
         logout()
         navigate("/")
     } 
-    
-    function toColectivos(){
-        navigate("/unidosis/colectivos")
-    }
-    function toEntradas(){
-        navigate("/unidosis/entradas")
-    }
 
-    function toSalidas(){
-        navigate("/unidosis/salidas")
-    }
 
     return(
         <div id="header" className="w-full flex flex-row justify-evenly bg-verde1 h-[130px] w-full items-center"> 
             <div className="w-3/12 flex items-center justify-evenly">
                 <img className="pt-2 pb-2" src={logo} alt="" />
             </div>
-            {/* <div className="w-6/12 b-2 b-white">
+            <div className="w-6/12 b-2 b-white">
                 <h1 className='text-center text-white font-bold text-3xl'>Sistema DIMISA <br/>Dosis, Insumos, Medicamentos, Inventario,<br/>Seguimiento, Administración</h1>
-            </div> */}
-            <div className="w-full  h-[60px] flex justify-evenly items-center">
-            <h2 className="text-bold text-white text-2xl" onClick={toColectivos}>Colectivos</h2>
-            <h2 className="text-bold text-white text-2xl" onClick={toEntradas}>Entradas</h2>
-            <h2 className="text-bold text-white text-2xl" onClick={toSalidas} >Salidas</h2>
+            </div> 
 
-        </div>
+
             <div className="w-3/12 flex justify-end">
             {
                 rol!==undefined &&(

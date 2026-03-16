@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useAuth } from "../../common/auth/auth_context";
 import type AreaEntity from "../../entities/area_entity";
 import Header from "../../common/header";
-//import UnidosisSubheader from "../components/unidosis_subheader";
+import UnidosisSubheader from "../components/unidosis_subheader";
 import { getAreasByCendis } from "../../services/areas_service";
 import { getTipos } from "../../services/tipo_col_sal";
 import type TipoEntity from "../../entities/tipo_entity";
@@ -44,7 +44,7 @@ function UnidosisSalidas(){
     return(
         <div className="flex flex-col items-center">
             <Header></Header>
-            {/* <UnidosisSubheader></UnidosisSubheader> */}
+            <UnidosisSubheader></UnidosisSubheader>
             <div>
                 <h2 className="text-red-500 font-bold text-xl">No olvidar calcular las salidas en piezas</h2>
             </div>
