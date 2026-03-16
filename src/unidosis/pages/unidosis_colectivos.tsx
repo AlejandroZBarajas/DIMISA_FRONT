@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useAuth } from "../../common/auth/auth_context";
 import type { ColectivoDTO } from "../../entities/colectivo_DTO";
 import Header from "../../common/header";
-import UnidosisSubheader from "../components/unidosis_subheader";
+//import UnidosisSubheader from "../components/unidosis_subheader";
 
 import ColectivoMaker from "../components/colectivos/colectivo_maker";
 import { getColectivosEditablesByCendis } from "../../services/colectivos_service";
@@ -30,7 +30,7 @@ export default function UnidosisColectivos(){
     return(
         <div className="flex flex-col items-center">
             <Header></Header>
-            <UnidosisSubheader></UnidosisSubheader>
+            {/* <UnidosisSubheader></UnidosisSubheader> */}
             <div className="flex flex-row w-12/12 justify-center">
               <ColectivoMaker
                 colectivosExistentes={colectivos}

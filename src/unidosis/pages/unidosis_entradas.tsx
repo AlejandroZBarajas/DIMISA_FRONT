@@ -1,13 +1,14 @@
 import Header from "../../common/header";
 import CapturadorEntradas from "../components/capturador_entradas";
-import UnidosisSubheader from "../components/unidosis_subheader";
+//import UnidosisSubheader from "../components/unidosis_subheader";
 
 function UnidosisEntradas(){
 
     return(
         <div>
             <Header></Header>
-            <UnidosisSubheader></UnidosisSubheader>
+            
+            {/* <UnidosisSubheader></UnidosisSubheader> */}
             <CapturadorEntradas></CapturadorEntradas>
         </div>
     )
