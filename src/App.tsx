@@ -13,64 +13,75 @@ import UnidosisEntradas from "./unidosis/pages/unidosis_entradas";
 import UnidosisSalidas from "./unidosis/pages/unidosis_salidas";
 
 export default function App() {
+
   return (
+
     <Routes>
 
       <Route path="/" element={<Login/>}/>
-
+                                                                     {/*PAGINAS DE ADMINISTRACIÓN */}
       <Route path="/admin/users" element={
         <ProtectedRoute allowedRoles={[1, 2]} >
             <AdminUsers />
-        </ProtectedRoute>} />
+        </ProtectedRoute>
+      } />
 
       <Route path="/admin/camas" element={
         <ProtectedRoute allowedRoles={[1, 2]} >
             <AdminCamas />
-        </ProtectedRoute>} />
+        </ProtectedRoute>
+      } />
 
       <Route path="/admin/cendis" element={
         <ProtectedRoute allowedRoles={[1, 2]} >
             <AdminCendis />
-        </ProtectedRoute>} />
+        </ProtectedRoute>
+      } />
 
       <Route path="/admin/areas" element={
-                <ProtectedRoute allowedRoles={[1, 2]} >
-
+        <ProtectedRoute allowedRoles={[1, 2]} >
             <AdminAreas />
-        </ProtectedRoute>} />
+        </ProtectedRoute>
+      }/>
 
       <Route path="/admin/claves" element={
-                <ProtectedRoute allowedRoles={[1, 2]} >
-
+        <ProtectedRoute allowedRoles={[1, 2]} >
             <AdminClaves />
-        </ProtectedRoute>} />
-{/*PAGINAS DE ENFERMERÍA */}
+        </ProtectedRoute>
+      } />
+
+                                                                     {/*PAGINAS DE ENFERMERÍA */}
       <Route path="/enfermeria/camas" element={
         <ProtectedRoute allowedRoles={[5]} >
             <EnfermeriaCamas />
-        </ProtectedRoute>} />
+        </ProtectedRoute>
+      } />
 
       <Route path="/enfermeria/solicitar" element={
-                <ProtectedRoute allowedRoles={[5]} >
-
+        <ProtectedRoute allowedRoles={[5]} >
             <EnfermeriaSolicitar />
-        </ProtectedRoute>} /> 
+        </ProtectedRoute>
+      } /> 
 
-{/*PAGINAS DE UNIDOSIS */}
+                                                                      {/*PAGINAS DE UNIDOSIS */}
       <Route path="/unidosis/colectivos" element={
         <ProtectedRoute allowedRoles={[6]} >
             <UnidosisColectivos />
-        </ProtectedRoute>} />
+        </ProtectedRoute>
+      } />
 
       <Route path="/unidosis/entradas" element={
         <ProtectedRoute allowedRoles={[6]} >
           <UnidosisEntradas/>
-        </ProtectedRoute> }/>
+        </ProtectedRoute> 
+      }/>
         
       <Route path="/unidosis/salidas" element={
         <ProtectedRoute allowedRoles={[6]} >
           <UnidosisSalidas/>
-        </ProtectedRoute> }/>
+        </ProtectedRoute> 
+      }/>
+
       </Routes>
   )
 }
