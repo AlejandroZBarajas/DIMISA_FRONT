@@ -8,3 +8,8 @@ export interface EntradaRequest {
   id_colectivo: number
   detalles: DetalleEntrada[];
 }
+
+export interface CargarInventarioRequest {
+  id_cendis: number;
+  detalles: DetalleEntrada[];
+}

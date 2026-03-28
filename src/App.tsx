@@ -11,6 +11,7 @@ import AdminClaves from "./admin/pages/admin_claves";
 import UnidosisColectivos from "./unidosis/pages/unidosis_colectivos";
 import UnidosisEntradas from "./unidosis/pages/unidosis_entradas";
 import UnidosisSalidas from "./unidosis/pages/unidosis_salidas";
+import UnidosisStock from "./unidosis/pages/unidosis_stock";
 
 export default function App() {
 
@@ -79,6 +80,12 @@ export default function App() {
       <Route path="/unidosis/salidas" element={
         <ProtectedRoute allowedRoles={[6]} >
           <UnidosisSalidas/>
+        </ProtectedRoute> 
+      }/>
+
+      <Route path="/unidosis/stock" element={
+        <ProtectedRoute allowedRoles={[6]} >
+          <UnidosisStock/>
         </ProtectedRoute> 
       }/>
 

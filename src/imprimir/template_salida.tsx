@@ -162,7 +162,7 @@ export function TemplateSalida(data: TemplateData): string {
           </div>
           <div class="firma-box">
             <div class="firma-linea"></div>
-            <p class="firma-texto">Nombre completo y firma de quien recibe en almacén</p>
+            <p class="firma-texto">Nombre completo y firma de responsable de enfermería</p>
           </div>
         </div>
       </body>
