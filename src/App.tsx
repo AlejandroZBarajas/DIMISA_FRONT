@@ -53,38 +53,38 @@ export default function App() {
 
                                                                      {/*PAGINAS DE ENFERMERÍA */}
       <Route path="/enfermeria/camas" element={
-        <ProtectedRoute allowedRoles={[5]} >
+        <ProtectedRoute allowedRoles={[1, 5]} >
             <EnfermeriaCamas />
         </ProtectedRoute>
       } />
 
       <Route path="/enfermeria/solicitar" element={
-        <ProtectedRoute allowedRoles={[5]} >
+        <ProtectedRoute allowedRoles={[1, 5]} >
             <EnfermeriaSolicitar />
         </ProtectedRoute>
       } /> 
 
                                                                       {/*PAGINAS DE UNIDOSIS */}
       <Route path="/unidosis/colectivos" element={
-        <ProtectedRoute allowedRoles={[6]} >
+        <ProtectedRoute allowedRoles={[1, 6]} >
             <UnidosisColectivos />
         </ProtectedRoute>
       } />
 
       <Route path="/unidosis/entradas" element={
-        <ProtectedRoute allowedRoles={[6]} >
+        <ProtectedRoute allowedRoles={[1, 6]} >
           <UnidosisEntradas/>
         </ProtectedRoute> 
       }/>
         
       <Route path="/unidosis/salidas" element={
-        <ProtectedRoute allowedRoles={[6]} >
+        <ProtectedRoute allowedRoles={[1, 6]} >
           <UnidosisSalidas/>
         </ProtectedRoute> 
       }/>
 
       <Route path="/unidosis/stock" element={
-        <ProtectedRoute allowedRoles={[6]} >
+        <ProtectedRoute allowedRoles={[1, 6]} >
           <UnidosisStock/>
         </ProtectedRoute> 
       }/>
