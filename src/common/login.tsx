@@ -13,7 +13,7 @@ export default function Login() {
   const [error, setError] = useState("");
 
   const API_URL = import.meta.env.VITE_API_URL + "/login";
-  console.log(API_URL)
+
 
   const handleLogin = async () => {
     setError("");
@@ -24,7 +24,7 @@ export default function Login() {
         body: JSON.stringify({ username, password }),
       });
       const data = await res.json();
-      console.log(data)
+      //console.log(data)
 
       if (!res.ok) {
         throw new Error(data.message || "Error al iniciar sesión");
