@@ -141,7 +141,7 @@ export function TemplateSalida(data: TemplateData): string {
             <tr>
               <th>Clave</th>
               <th>Descripción</th>
-              <th class="cantidades">Cantidad surtida</th>
+              <th class="cantidades">Piezas surtidas</th>
             </tr>
           </thead>
           <tbody>
