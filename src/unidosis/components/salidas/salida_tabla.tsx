@@ -42,11 +42,11 @@ export default function SalidaTabla({
                 <td className="border border-gray-300 bg-white px-2 py-1 text-center">
                   <input
                     type="number"
-                    min={1}
+                    min={0}
                     value={item.cantidad}
                     onChange={(e) => {
                       const nuevaCantidad = Number(e.target.value);
-                      if (nuevaCantidad < 1) {
+                      if (nuevaCantidad < 0) {
                         onEliminar(index);
                       } else {
                         onCantidadChange(index, nuevaCantidad);
