@@ -46,7 +46,7 @@ export default function SalidasTipo({ area, cendis, tipo, id_tipo }: Props) {
       cantidad: 1,
     };
 
-    setLista([...lista, nuevoItem]);
+    setLista((prevLista) => [nuevoItem, ...prevLista]);
   };
 
   const handleCantidadChange = (index: number, cantidad: number) => {
