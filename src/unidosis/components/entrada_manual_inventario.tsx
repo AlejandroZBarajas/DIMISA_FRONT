@@ -71,6 +71,7 @@ export default function EntradaManualInventario() {
   try {
     await cargarAInventario({
       id_cendis: auth.user.cnd,  // ✅
+      id_usuario: auth.user.user_id, // ✅
       detalles: lista.map(({ id_medicamento, cantidad }) => ({
         id_medicamento,
         cantidad,

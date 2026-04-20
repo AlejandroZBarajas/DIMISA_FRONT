@@ -50,7 +50,7 @@ async function handleImprimir() {
   if (!colectivo.claves || colectivo.claves.length === 0) return null;
 
   return (
-    <div className="border rounded-lg shadow p-4 mb-4 w-full bg-white">
+    <div className="border rounded-lg shadow p-4 mb-4 w-full bg-white">COLECTIVO CARD
       <div
         className="flex justify-between items-center cursor-pointer"
         onClick={() => setOpen(!open)}
