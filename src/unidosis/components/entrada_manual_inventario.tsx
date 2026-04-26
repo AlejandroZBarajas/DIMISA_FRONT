@@ -71,6 +71,7 @@ export default function EntradaManualInventario() {
   try {
     await cargarAInventario({
       id_cendis: auth.user.cnd,  // ✅
+      id_usuario: auth.user.user_id, // ✅
       detalles: lista.map(({ id_medicamento, cantidad }) => ({
         id_medicamento,
         cantidad,
@@ -85,7 +86,7 @@ export default function EntradaManualInventario() {
   }
 };
   return (
-    <div className="flex flex-col gap-4 w-1/2 mx-auto">
+    <div className="flex flex-col gap-4 w-1/2 mx-auto p-4">
       <div>
         <h1 className="font-bold text-xl text-red-500">Cargar por Piezas</h1>
         <BuscadorMedicamentos onSelect={handleSelect} />
