@@ -21,7 +21,7 @@ function UnidosisSubheader(){
             <h2 className="text-bold text-white text-2xl" onClick={toColectivos}>Colectivos</h2>
             <h2 className="text-bold text-white text-2xl" onClick={toEntradas}>Entradas</h2>
             <h2 className="text-bold text-white text-2xl" onClick={toSalidas} >Salidas</h2>
-            <h2 className="text-bold text-white text-2xl" onClick={toStock} >Cargar Stock</h2>
+            <h2 className="text-bold text-white text-2xl" onClick={toStock} >Inventario</h2>
 
         </div>
     )
