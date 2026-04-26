@@ -17,8 +17,12 @@ function UnidosisStock(){
             
             <UnidosisSubheader></UnidosisSubheader>
             <div className="flex">
-                <TablaInventario idCendis={id_cendis!}></TablaInventario>
-                <EntradaManualInventario></EntradaManualInventario>
+                <div className="w-2/3">
+                    <TablaInventario idCendis={id_cendis!}></TablaInventario>
+                </div>
+                <div className="w-1/3">
+                    <EntradaManualInventario></EntradaManualInventario>
+                </div>
             </div>
         </div>
     )

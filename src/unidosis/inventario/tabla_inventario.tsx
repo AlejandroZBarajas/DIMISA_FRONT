@@ -35,7 +35,7 @@ function InventarioTable({ idCendis }: Props) {
     return <p className="mt-4 text-sm text-gray-500">Sin registros para este CENDIS.</p>;
 
   return (
-    <div className="mt-4 p-4">
+    <div className="mt-4 p-4 ">
       <p className="mb-2 text-sm text-gray-500">
         <span className="font-semibold text-gray-700">{inventario.cendis}</span>
         {" · "}
