@@ -4,7 +4,7 @@ import type { ClaveInventarioEntity } from "../../../entities/clave_inventario_e
 
 interface BuscadorInventarioProps {
   cendisId: number;
-  onSelect: (clave: ClaveInventarioEntity) => void;
+  onSelect?: (clave: ClaveInventarioEntity) => void;
 }
 
 export default function BuscadorInventario({ cendisId, onSelect }: BuscadorInventarioProps) {
@@ -13,7 +13,7 @@ export default function BuscadorInventario({ cendisId, onSelect }: BuscadorInven
 
   const handleSelect = (item: ClaveInventarioEntity) => {
     if (item.cantidad_actual === 0) return
-    onSelect(item);
+    onSelect?.(item);
     setQuery("");
   };
 

@@ -90,7 +90,7 @@ export default function App() {
         </ProtectedRoute> 
       }/>
 
-      <Route path="/reportes" element={
+      <Route path="/cpm" element={
         <ProtectedRoute allowedRoles={[1, 3]} >
           <Reportes/>
         </ProtectedRoute> 
