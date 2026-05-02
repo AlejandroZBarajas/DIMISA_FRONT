@@ -51,7 +51,7 @@ export default function Login() {
         navigate("/admin/users")
         break
         case 3:
-          navigate("/supervision")
+          navigate("/reportes")
           break
           case 4:
           navigate("/admision")

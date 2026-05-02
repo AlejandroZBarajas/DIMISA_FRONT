@@ -1,12 +1,15 @@
 import { useState } from "react";
 import { capturarEntrada } from "../../../services/entradas_service";
 import type { ColectivoDTO } from "../../../entities/colectivo_DTO";
+import { useAuth } from "../../../common/auth/auth_context";
+
 
 interface Props {
   colectivo: ColectivoDTO;
 }
 
 export default function ColectivoParaEntrada({ colectivo }: Props) {
+  const { auth } = useAuth(); 
   const [open, setOpen] = useState(false);
   const [cantidades, setCantidades] = useState<Record<number, number>>({});
   const [guardando, setGuardando] = useState(false);
@@ -35,6 +38,7 @@ export default function ColectivoParaEntrada({ colectivo }: Props) {
 
       await capturarEntrada({
         id_cendis: colectivo.id_cendis,
+        id_usuario: auth.user!.user_id,
         id_colectivo: colectivo.id_colectivo!,
         detalles
       });
