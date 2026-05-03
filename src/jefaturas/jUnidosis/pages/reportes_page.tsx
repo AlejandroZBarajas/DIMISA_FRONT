@@ -1,0 +1,35 @@
+import { useState } from "react"
+import ReporteMensual from "../components/reporte_mensual"
+import DeficitCronico from "../components/deficit_cronico"
+import ComparativoCendis from "../components/reporte_comparativo"
+
+const TABS = ["Reporte mensual", "Déficit crónico", "Comparativo cendis"] as const
+type Tab = typeof TABS[number]
+
+export default function ReportesPage() {
+  const [tab, setTab] = useState<Tab>("Reporte mensual")
+
+  return (
+    <div className="p-6 space-y-6">
+      <div className="flex gap-1 border-b border-gray-200">
+        {TABS.map(t => (
+          <button
+            key={t}
+            onClick={() => setTab(t)}
+            className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors ${
+              tab === t
+                ? "border-blue-600 text-blue-600"
+                : "border-transparent text-gray-500 hover:text-gray-700"
+            }`}
+          >
+            {t}
+          </button>
+        ))}
+      </div>
+
+      {tab === "Reporte mensual"    && <ReporteMensual />}
+      {tab === "Déficit crónico"    && <DeficitCronico />}
+      {tab === "Comparativo cendis" && <ComparativoCendis />}
+    </div>
+  )
+}

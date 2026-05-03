@@ -12,7 +12,8 @@ import UnidosisColectivos from "./unidosis/pages/unidosis_colectivos";
 import UnidosisEntradas from "./unidosis/pages/unidosis_entradas";
 import UnidosisSalidas from "./unidosis/pages/unidosis_salidas";
 import UnidosisStock from "./unidosis/pages/unidosis_stock";
-import Reportes from "./jefaturas/jUnidosis/pages/reportes";
+import Reportes from "./jefaturas/jUnidosis/pages/cpm";
+import ReportesPage from "./jefaturas/jUnidosis/pages/reportes_page";
 
 export default function App() {
 
@@ -93,6 +94,12 @@ export default function App() {
       <Route path="/cpm" element={
         <ProtectedRoute allowedRoles={[1, 3]} >
           <Reportes/>
+        </ProtectedRoute> 
+      }/>
+
+      <Route path="/reportes" element={
+        <ProtectedRoute allowedRoles={[1, 3]} >
+          <ReportesPage/>
         </ProtectedRoute> 
       }/>
 

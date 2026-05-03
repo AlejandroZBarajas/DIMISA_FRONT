@@ -33,11 +33,6 @@ export default function ColectivoParaEntrada({ colectivo }: Props) {
           cantidad: Number(cantidades[d.id_medicamento]) 
         }));
 
-     /*  if (detalles.length === 0) {
-        alert("No hay cantidades para guardar");
-        return;
-      } */
-
       await capturarEntrada({
         id_cendis: colectivo.id_cendis,
         id_usuario: auth.user!.user_id,
@@ -93,13 +88,6 @@ export default function ColectivoParaEntrada({ colectivo }: Props) {
                   <td className="border p-2">{d.descripcion}</td>
                   <td className="border p-2">{d.cantidad}</td>
                   <td className="border p-2">
-                    {/* <input
-                      type="number"
-                      min={0}
-                      value={cantidades[d.id_medicamento] ?? ""}
-                      onChange={(e) => handleCantidadChange(d.id_medicamento, e.target.value)}
-                      className="w-full border rounded p-1"
-                    /> */}
                     <input
                       type="text"
                       inputMode="numeric"
