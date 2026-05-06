@@ -83,7 +83,7 @@ export default function ColectivoParaEntrada({ colectivo }: Props) {
             </thead>
             <tbody>
               {colectivo.claves.map((d) => (
-                <tr key={d.id_detalle}>
+                <tr key={`${colectivo.id_colectivo}-${d.id_detalle}`}>
                   <td className="border p-2">{d.clave}</td>
                   <td className="border p-2">{d.descripcion}</td>
                   <td className="border p-2">{d.cantidad}</td>
