@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useAuth } from "../../../common/auth/auth_context";
 import SalidaTabla from "./salida_tabla";
 import type AreaEntity from "../../../entities/area_entity";
-import type { ClaveEntity } from "../../../entities/clave_entity";
 import { createSalida, cerrarSalida } from "../../../services/salidas_service";
 import { TemplateSalida } from "../../../imprimir/template_salida";
 import { PrintColSal } from "../../../imprimir/printer";
