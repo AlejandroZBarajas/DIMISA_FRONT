@@ -34,10 +34,12 @@ export default function CapturadorEntradas() {
       <h1 className="text-red-600 text-xl font-bold">RECUERDE CAPTURAR ENTRADAS POR PIEZAS</h1>
       <h2 className="text-xl font-bold mb-4">Colectivos Pendientes de Captura</h2>
 
-      {colectivos.length === 0 ? (
-        <p>No hay colectivos pendientes.</p>
+     {colectivos.length === 0 ? (
+      <p>No hay colectivos pendientes.</p>
       ) : (
-        colectivos.map((c) => <ColectivoParaEntrada key={c.id_colectivo} colectivo={c} />)
+        [...colectivos]
+          .sort((a, b) => b.id_colectivo - a.id_colectivo)
+          .map((c) => <ColectivoParaEntrada key={c.id_colectivo} colectivo={c} />)
       )}
     </div>
   );
