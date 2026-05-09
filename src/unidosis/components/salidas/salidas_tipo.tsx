@@ -8,12 +8,14 @@ import { TemplateSalida } from "../../../imprimir/template_salida";
 import { PrintColSal } from "../../../imprimir/printer";
 import type SalidaEntity from "../../../entities/salida_entity";
 import BuscadorInventario from "../colectivos/buscador_medicamentos_inventario";
+import type { ClaveInventarioEntity } from "../../../entities/clave_inventario_entity";
 
 interface ItemLista {
   id_medicamento: number;
   clave: string;
   descripcion: string;
   cantidad: number;
+  stock: number;
 }
 
 interface Props {
@@ -29,7 +31,7 @@ export default function SalidasTipo({ area, cendis, tipo, id_tipo }: Props) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
 
-  const handleSelectMedicamento = (clave: ClaveEntity) => {
+  const handleSelectMedicamento = (clave: ClaveInventarioEntity) => {
     const yaExiste = lista.some(
       (item) => item.id_medicamento === clave.id_medicamento
     );
@@ -44,6 +46,7 @@ export default function SalidasTipo({ area, cendis, tipo, id_tipo }: Props) {
       clave: clave.clave_med,
       descripcion: clave.descripcion,
       cantidad: 1,
+      stock: clave.cantidad_actual || 1
     };
 
     setLista((prevLista) => [nuevoItem, ...prevLista]);

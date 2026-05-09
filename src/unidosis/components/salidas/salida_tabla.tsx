@@ -3,6 +3,7 @@ interface ItemLista {
   clave: string;
   descripcion: string;
   cantidad: number;
+  stock: number;
 }
 
 interface Props {
@@ -42,15 +43,13 @@ export default function SalidaTabla({
                 <td className="border border-gray-300 bg-white px-2 py-1 text-center">
                   <input
                     type="number"
-                    min={0}
+                    min={1}
+                    max={item.stock}
                     value={item.cantidad}
                     onChange={(e) => {
-                      const nuevaCantidad = Number(e.target.value);
-                      if (nuevaCantidad < 0) {
-                        onEliminar(index);
-                      } else {
-                        onCantidadChange(index, nuevaCantidad);
-                      }
+                      const val = Math.min(Number(e.target.value), item.stock); 
+                      if (val < 0) onEliminar(index);
+                      else onCantidadChange(index, val);
                     }}
                     disabled={isProcessing}
                     className="w-20 border rounded p-1 text-center disabled:bg-gray-100"
