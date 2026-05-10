@@ -1,4 +1,4 @@
-import BuscadorMedicamentos from "./colectivos/buscador_medicamentos";
+import BuscadorMedicamentos from "./colectivos/buscador_items";
 import type { ClaveEntity } from "../../entities/clave_entity";
 import { useState } from "react";
 import MedicamentoSeleccionado from "./colectivos/medicamentos_seleccionados";

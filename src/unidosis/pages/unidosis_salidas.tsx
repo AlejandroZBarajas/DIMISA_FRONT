@@ -1,5 +1,3 @@
-// UnidosisSalidas.tsx
-
 import { useState, useEffect } from "react";
 import { useAuth } from "../../common/auth/auth_context";
 import type AreaEntity from "../../entities/area_entity";

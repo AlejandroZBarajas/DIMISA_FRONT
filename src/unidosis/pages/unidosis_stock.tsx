@@ -3,7 +3,7 @@ import UnidosisSubheader from "../components/unidosis_subheader";
 import EntradaManualInventario from "../components/entrada_manual_inventario";
 import TablaInventario from "../inventario/tabla_inventario";
 import { useAuth } from "../../common/auth/auth_context";
-import BuscadorInventario from "../components/colectivos/buscador_medicamentos_inventario";
+import BuscadorInventario from "../components/colectivos/buscador_inventario";
 
 function UnidosisStock(){
 
