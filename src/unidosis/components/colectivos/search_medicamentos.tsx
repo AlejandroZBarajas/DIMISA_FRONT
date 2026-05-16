@@ -1,4 +1,4 @@
-import { useState } from "react"
+/* import { useState } from "react"
 import { useSearchClaves } from "../../../hooks/useSearchClavesHook"
 
 export default function SearchMedicamentos() {
@@ -7,6 +7,7 @@ export default function SearchMedicamentos() {
 
   return (
     <div className="max-w-lg mx-auto p-4">
+      <h1>SE RENDERIZA SEARCH MEDICAMENTOS</h1>
       <input
         type="text"
         value={query}
@@ -47,3 +48,4 @@ export default function SearchMedicamentos() {
     </div>
   )
 }
+ */

@@ -1,9 +1,9 @@
-import BuscadorMedicamentos from "./colectivos/buscador_items";
 import type { ClaveEntity } from "../../entities/clave_entity";
 import { useState } from "react";
 import MedicamentoSeleccionado from "./colectivos/medicamentos_seleccionados";
 import { useAuth } from "../../common/auth/auth_context";
 import { cargarAInventario } from "../../services/entradas_service";
+import BuscadorItems from "./colectivos/buscador_items";
 
 type ItemLista = {
   id_medicamento: number;
@@ -89,7 +89,7 @@ export default function EntradaManualInventario() {
     <div className="flex flex-col gap-4 mx-auto p-4">
       <div>
         <h1 className="font-bold text-xl text-red-500">Cargar por Piezas</h1>
-        <BuscadorMedicamentos onSelect={handleSelect} />
+        <BuscadorItems onSelect={handleSelect} itemType="all"/>
 
         {selected && (
           <MedicamentoSeleccionado

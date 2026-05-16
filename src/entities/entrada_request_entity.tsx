@@ -1,7 +1,7 @@
 interface DetalleEntrada {
   id_medicamento: number;
   cantidad: number;
-  piezas_esperadas: number; 
+  piezas_esperadas?: number; 
 }
 
 export interface EntradaRequest {

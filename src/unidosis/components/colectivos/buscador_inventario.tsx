@@ -4,7 +4,7 @@ import type { ClaveInventarioEntity } from "../../../entities/clave_inventario_e
 
 interface BuscadorInventarioProps {
   cendisId: number;
-  itemType: "med" | "mat";
+  itemType: "med" | "mat" | "all"
   onSelect?: (clave: ClaveInventarioEntity) => void;
 }
 
@@ -12,7 +12,11 @@ export default function BuscadorInventario({ cendisId, itemType, onSelect }: Bus
   const [query, setQuery] = useState("");
   const { results, loading, error } = useSearchInInventory(query, cendisId, itemType);
 
-  const placeholder = itemType === "med" ? "Buscar medicamento..." : "Buscar material de curación...";
+ const placeholder = itemType === "med" 
+  ? "Buscar medicamento..." 
+  : itemType === "mat" 
+    ? "Buscar material de curación..." 
+    : "Buscar en inventario..."
 
   // Limpiar al cambiar tipo
   useEffect(() => {

@@ -1,9 +1,9 @@
 // useSearchClavesHook.ts
 import { useEffect, useState } from "react"
-import { SearchClaves } from "../services/claves_service"
+import { SearchClaves, SearchAllClaves } from "../services/claves_service"
 import type { ClaveEntity } from "../entities/clave_entity"
 
-export function useSearchClaves(query: string, itemType: "med" | "mat") {
+export function useSearchClaves(query: string, itemType: "med" | "mat" | "all") {
   const [results, setResults] = useState<ClaveEntity[]>([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -18,7 +18,9 @@ export function useSearchClaves(query: string, itemType: "med" | "mat") {
       try {
         setLoading(true)
         setError(null)
-        const response = await SearchClaves(query, itemType)
+          const response = itemType === "all"
+            ? await SearchAllClaves(query)
+            : await SearchClaves(query, itemType)
         if (response.success && response.data) {
           setResults(response.data)
         } else {

@@ -3,7 +3,7 @@ import { useSearchClaves } from "../../../hooks/useSearchClavesHook";
 import type { ClaveEntity } from "../../../entities/clave_entity";
 
 interface BuscadorItemsProps {
-  itemType: "med" | "mat";
+  itemType: "med" | "mat" | "all";
   onSelect: (clave: ClaveEntity) => void;
   disabled?: boolean;
 }
@@ -18,7 +18,7 @@ export default function BuscadorItems({ itemType, onSelect, disabled }: Buscador
   const listRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const placeholder = itemType === "med" ? "Buscar medicamento..." : "Buscar material de curación...";
+  const placeholder = itemType === "med" ? "Buscar medicamento..." : itemType === "mat" ? "Buscar material de curación..." : "Buscar clave...";
 
   // Limpiar resultados al cambiar tipo
   useEffect(() => {
@@ -98,6 +98,7 @@ export default function BuscadorItems({ itemType, onSelect, disabled }: Buscador
 
   return (
     <div ref={containerRef} className="relative mb-4 w-full z-50">
+      <h1>SE RENDERIZA BUSCADOR items</h1>
       <input
         disabled={disabled}
         placeholder={disabled ? "Selecciona un tipo primero..." : placeholder}
