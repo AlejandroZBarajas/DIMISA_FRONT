@@ -13,12 +13,17 @@ export default function ColectivoParaEntrada({ colectivo }: Props) {
   const [open, setOpen] = useState(false);
   const [cantidades, setCantidades] = useState<Record<number, string>>({});
   const [guardando, setGuardando] = useState(false);
+  const [piezasEsperadas, setPiezasEsperadas] = useState<Record<number, string>>({});
 
   function handleCantidadChange(id_medicamento: number, valor: string) {
     setCantidades(prev => ({
       ...prev,
       [id_medicamento]: valor
     }));
+  }
+
+  function handlePiezasEsperadasChange(id_medicamento: number, valor: string) {
+    setPiezasEsperadas(prev => ({ ...prev, [id_medicamento]: valor }));
   }
 
   async function handleGuardar() {
@@ -30,7 +35,8 @@ export default function ColectivoParaEntrada({ colectivo }: Props) {
           && Number(cantidades[d.id_medicamento]) > 0) 
         .map(d => ({
           id_medicamento: d.id_medicamento,
-          cantidad: Number(cantidades[d.id_medicamento]) 
+          cantidad: Number(cantidades[d.id_medicamento]), 
+          piezas_esperadas: Number(piezasEsperadas[d.id_medicamento] ?? 0) 
         }));
 
       await capturarEntrada({
@@ -49,9 +55,26 @@ export default function ColectivoParaEntrada({ colectivo }: Props) {
       setGuardando(false);
     }
   }
-  const todosCapturados = colectivo.claves.every(
-    d => cantidades[d.id_medicamento] !== undefined && cantidades[d.id_medicamento] !== ""
-  );  
+
+  const todosCapturados = colectivo.claves.every(d => {
+  const recibidas = Number(cantidades[d.id_medicamento]);
+  const esperadas = Number(piezasEsperadas[d.id_medicamento]);
+
+  return (
+    cantidades[d.id_medicamento] !== undefined && cantidades[d.id_medicamento] !== "" &&
+    piezasEsperadas[d.id_medicamento] !== undefined && piezasEsperadas[d.id_medicamento] !== "" &&
+    recibidas >= esperadas  
+  );
+});
+
+const hayDiscrepancia = colectivo.claves.some(d => {
+  const recibidas = cantidades[d.id_medicamento];
+  const esperadas = piezasEsperadas[d.id_medicamento];
+
+  if (!recibidas || !esperadas) return false;
+
+  return Number(recibidas) < Number(esperadas);
+});
 
   return (
     <div className="border rounded-lg shadow p-4 mb-4">
@@ -78,6 +101,7 @@ export default function ColectivoParaEntrada({ colectivo }: Props) {
                 <th className="border p-2">Clave</th>
                 <th className="border p-2">Descripción</th>
                 <th className="border p-2">Cajas solicitadas</th>
+                <th className="border p-2">Piezas esperadas</th>
                 <th className="border p-2">Piezas recibidas</th>
               </tr>
             </thead>
@@ -101,12 +125,31 @@ export default function ColectivoParaEntrada({ colectivo }: Props) {
                       className="w-full border rounded p-1"
                     />
                   </td>
+                  <td className="border p-2">
+                    <input
+                      type="text"
+                      inputMode="numeric"
+                      pattern="[0-9]*"
+                      value={piezasEsperadas[d.id_medicamento] ?? ""}
+                      onChange={(e) => {
+                        const val = e.target.value.replace(/[^0-9]/g, "");
+                        handlePiezasEsperadasChange(d.id_medicamento, val);
+                      }}
+                      className="w-full border rounded p-1"
+                    />
+                  </td>
+
                 </tr>
               ))}
             </tbody>
           </table>
 
           <div className="flex justify-end mt-4">
+            {hayDiscrepancia && (
+              <p className="text-red-500 text-sm mt-2">
+                Las piezas recibidas no pueden ser mayores a las esperadas.
+              </p>
+            )}
             <button
               onClick={handleGuardar}
               disabled={guardando || !todosCapturados}

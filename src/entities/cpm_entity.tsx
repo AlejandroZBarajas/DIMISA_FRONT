@@ -19,5 +19,6 @@ export interface CpmDetalle {
 }
 
 export interface CpmEntity {
-  detalles: CpmDetalle[]
+  medicamentos: CpmDetalle[]
+  material: CpmDetalle[]
 }

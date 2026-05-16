@@ -6,8 +6,9 @@ import { createSalida, cerrarSalida } from "../../../services/salidas_service";
 import { TemplateSalida } from "../../../imprimir/template_salida";
 import { PrintColSal } from "../../../imprimir/printer";
 import type SalidaEntity from "../../../entities/salida_entity";
-import BuscadorInventario from "../colectivos/buscador_medicamentos_inventario";
+import BuscadorInventario from "../colectivos/buscador_inventario";
 import type { ClaveInventarioEntity } from "../../../entities/clave_inventario_entity";
+import { toItemType } from "../../../common/to_item_type";
 
 interface ItemLista {
   id_medicamento: number;
@@ -177,7 +178,11 @@ export default function SalidasTipo({ area, cendis, tipo, id_tipo }: Props) {
       {/* Contenido expandible */}
       {isExpanded && (
         <div className="mt-3">
-          <BuscadorInventario cendisId={auth.user?.cnd!} onSelect={handleSelectMedicamento} />
+          <BuscadorInventario 
+            cendisId={auth.user?.cnd!} 
+            onSelect={handleSelectMedicamento} 
+            itemType={toItemType(id_tipo)}
+          />
           
           <SalidaTabla
             lista={lista}

@@ -5,4 +5,5 @@ export interface ColectivoDetalleDTO {
   id_medicamento: number;
   descripcion?: string | undefined;
   cantidad: number | undefined;
+  piezas_esperadas: number; 
 }

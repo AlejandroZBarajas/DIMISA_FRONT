@@ -3,9 +3,10 @@ import { useAuth } from "../../../common/auth/auth_context";
 import type { ClaveEntity } from "../../../entities/clave_entity";
 import { createColectivo, addToColectivo } from "../../../services/colectivos_service";
 import SelectorTipo from "../selector_tipo_col";
-import BuscadorMedicamentos from "./buscador_medicamentos";
+import BuscadorItems from "./buscador_items";
 import MedicamentoSeleccionado from "./medicamentos_seleccionados";
 import type { ColectivoDTO } from "../../../entities/colectivo_DTO";
+import { toItemType } from "../../../common/to_item_type";
 
 interface ColectivoMakerProps{
   colectivosExistentes: ColectivoDTO[]
@@ -25,13 +26,12 @@ interface ColectivosPorTipo {
 
 export default function ColectivoMaker({colectivosExistentes, onColectivoCreado}: ColectivoMakerProps) {
   const {auth} = useAuth()
-  const [tipoSeleccionado, setTipoSeleccionado] = useState<number>();
   const [selected, setSelected] = useState<ClaveEntity | null>(null);
   const [cantidad, setCantidad] = useState<number>(1);
   
+  const [tipoSeleccionado, setTipoSeleccionado] = useState<number>();
   const [colectivosPorTipo, setColectivosPorTipo] = useState<ColectivosPorTipo>({
     1: [], // Medicamentos
-    2: [], // Soluciones
     3: [], // Material de Curación
   });
 
@@ -144,7 +144,11 @@ export default function ColectivoMaker({colectivosExistentes, onColectivoCreado}
         label="Tipo de Colectivo"
       />
 
-      <BuscadorMedicamentos onSelect={handleSelect} />
+      <BuscadorItems 
+        itemType={toItemType(tipoSeleccionado ?? 1)} 
+        onSelect={handleSelect} 
+        disabled={!tipoSeleccionado}
+      />
 
       {selected && tipoSeleccionado && (
         <MedicamentoSeleccionado
@@ -153,12 +157,6 @@ export default function ColectivoMaker({colectivosExistentes, onColectivoCreado}
           onCantidadChange={setCantidad}
           onAdd={handleAdd}
         />
-      )}
-
-      {!tipoSeleccionado && selected && (
-        <p className="text-red-500 text-sm mt-2">
-          Selecciona un tipo de colectivo primero
-        </p>
       )}
 
       <div className="mt-6 space-y-4">

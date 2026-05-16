@@ -2,21 +2,31 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import { useSearchClaves } from "../../../hooks/useSearchClavesHook";
 import type { ClaveEntity } from "../../../entities/clave_entity";
 
-interface BuscadorMedicamentosProps {
+interface BuscadorItemsProps {
+  itemType: "med" | "mat" | "all";
   onSelect: (clave: ClaveEntity) => void;
+  disabled?: boolean;
 }
 
-export default function BuscadorMedicamentos({ onSelect }: BuscadorMedicamentosProps) {
+export default function BuscadorItems({ itemType, onSelect, disabled }: BuscadorItemsProps) {
   const [query, setQuery] = useState("");
   const [activeIndex, setActiveIndex] = useState(-1);
   const [isOpen, setIsOpen] = useState(false);
-  const { results, loading, error } = useSearchClaves(query);
+  const { results, loading, error } = useSearchClaves(query, itemType);
 
   const inputRef = useRef<HTMLInputElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Abrir/cerrar dropdown según query
+  const placeholder = itemType === "med" ? "Buscar medicamento..." : itemType === "mat" ? "Buscar material de curación..." : "Buscar clave...";
+
+  // Limpiar resultados al cambiar tipo
+  useEffect(() => {
+    setQuery("");
+    setIsOpen(false);
+    setActiveIndex(-1);
+  }, [itemType]);
+
   useEffect(() => {
     if (query.length >= 2) {
       setIsOpen(true);
@@ -26,7 +36,6 @@ export default function BuscadorMedicamentos({ onSelect }: BuscadorMedicamentosP
     }
   }, [query]);
 
-  // Scroll automático al ítem activo
   useEffect(() => {
     if (activeIndex >= 0 && listRef.current) {
       const activeItem = listRef.current.querySelector<HTMLDivElement>(
@@ -36,7 +45,6 @@ export default function BuscadorMedicamentos({ onSelect }: BuscadorMedicamentosP
     }
   }, [activeIndex]);
 
-  // Cerrar al hacer click fuera
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
@@ -67,19 +75,16 @@ export default function BuscadorMedicamentos({ onSelect }: BuscadorMedicamentosP
         e.preventDefault();
         setActiveIndex((prev) => (prev < results.length - 1 ? prev + 1 : prev));
         break;
-
       case "ArrowUp":
         e.preventDefault();
         setActiveIndex((prev) => (prev > 0 ? prev - 1 : -1));
         break;
-
       case "Enter":
         e.preventDefault();
         if (activeIndex >= 0 && results[activeIndex]) {
           handleSelect(results[activeIndex]);
         }
         break;
-
       case "Escape":
         setIsOpen(false);
         setActiveIndex(-1);
@@ -93,13 +98,18 @@ export default function BuscadorMedicamentos({ onSelect }: BuscadorMedicamentosP
 
   return (
     <div ref={containerRef} className="relative mb-4 w-full z-50">
+      <h1>SE RENDERIZA BUSCADOR items</h1>
       <input
+        disabled={disabled}
+        placeholder={disabled ? "Selecciona un tipo primero..." : placeholder}
+        className={`w-full bg-white border rounded-xl p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+          disabled ? "opacity-50 cursor-not-allowed bg-gray-100" : ""
+        }`}
         ref={inputRef}
         type="text"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         onKeyDown={handleKeyDown}
-        placeholder="Buscar medicamento..."
         autoComplete="off"
         aria-autocomplete="list"
         aria-expanded={isOpen}
@@ -107,7 +117,6 @@ export default function BuscadorMedicamentos({ onSelect }: BuscadorMedicamentosP
         aria-activedescendant={
           activeIndex >= 0 ? `buscador-item-${activeIndex}` : undefined
         }
-        className="w-full bg-white border rounded-xl p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
 
       {isOpen && (

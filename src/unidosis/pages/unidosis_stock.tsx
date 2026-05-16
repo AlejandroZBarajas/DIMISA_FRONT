@@ -3,7 +3,7 @@ import UnidosisSubheader from "../components/unidosis_subheader";
 import EntradaManualInventario from "../components/entrada_manual_inventario";
 import TablaInventario from "../inventario/tabla_inventario";
 import { useAuth } from "../../common/auth/auth_context";
-import BuscadorInventario from "../components/colectivos/buscador_medicamentos_inventario";
+import BuscadorInventario from "../components/colectivos/buscador_inventario";
 
 function UnidosisStock(){
 
@@ -19,7 +19,7 @@ function UnidosisStock(){
             <UnidosisSubheader></UnidosisSubheader>
             <div className="flex">
                 <div className="w-2/3 p-10">
-                    <BuscadorInventario cendisId={auth.user?.cnd!}></BuscadorInventario>
+                    <BuscadorInventario cendisId={auth.user?.cnd!} itemType="all"></BuscadorInventario>
 
                     <TablaInventario idCendis={id_cendis!}></TablaInventario>
                 </div>

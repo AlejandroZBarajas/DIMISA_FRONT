@@ -22,7 +22,7 @@ export default function App() {
     <Routes>
 
       <Route path="/" element={<Login/>}/>
-                                                                     {/*PAGINAS DE ADMINISTRACIÓN */}
+                                                                     {/*PAGINAS DE SISTEMAS */}
       <Route path="/admin/users" element={
         <ProtectedRoute allowedRoles={[1, 2]} >
             <AdminUsers />
