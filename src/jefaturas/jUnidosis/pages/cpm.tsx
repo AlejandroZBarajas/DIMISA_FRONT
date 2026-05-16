@@ -7,7 +7,10 @@ export default function CPM() {
     <div>
       <Header />
       <ReportesSubheader />
-      <CpmTable />
+      <div className="p-6">
+
+        <CpmTable />
+      </div>
     </div>
   );
 }

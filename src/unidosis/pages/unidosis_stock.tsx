@@ -19,7 +19,7 @@ function UnidosisStock(){
             <UnidosisSubheader></UnidosisSubheader>
             <div className="flex">
                 <div className="w-2/3 p-10">
-                    <BuscadorInventario cendisId={auth.user?.cnd!}></BuscadorInventario>
+                    <BuscadorInventario cendisId={auth.user?.cnd!} itemType="all"></BuscadorInventario>
 
                     <TablaInventario idCendis={id_cendis!}></TablaInventario>
                 </div>
