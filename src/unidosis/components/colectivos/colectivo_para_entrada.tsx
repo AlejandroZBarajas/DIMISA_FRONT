@@ -30,9 +30,10 @@ export default function ColectivoParaEntrada({ colectivo }: Props) {
     setGuardando(true);
     try {
       const detalles = colectivo.claves
-        .filter(d => cantidades[d.id_medicamento] !== undefined 
-          && cantidades[d.id_medicamento] !== ""
-          && Number(cantidades[d.id_medicamento]) > 0) 
+        .filter(d => 
+          cantidades[d.id_medicamento] !== undefined && cantidades[d.id_medicamento] !== "" &&
+          piezasEsperadas[d.id_medicamento] !== undefined && piezasEsperadas[d.id_medicamento] !== ""
+        )
         .map(d => ({
           id_medicamento: d.id_medicamento,
           cantidad: Number(cantidades[d.id_medicamento]), 
@@ -63,7 +64,7 @@ export default function ColectivoParaEntrada({ colectivo }: Props) {
   return (
     cantidades[d.id_medicamento] !== undefined && cantidades[d.id_medicamento] !== "" &&
     piezasEsperadas[d.id_medicamento] !== undefined && piezasEsperadas[d.id_medicamento] !== "" &&
-    recibidas >= esperadas  
+    esperadas > 0 && esperadas >= recibidas && recibidas >= 0
   );
 });
 
@@ -73,7 +74,7 @@ const hayDiscrepancia = colectivo.claves.some(d => {
 
   if (!recibidas || !esperadas) return false;
 
-  return Number(recibidas) < Number(esperadas);
+  return Number(recibidas) > Number(esperadas);
 });
 
   return (
@@ -116,11 +117,10 @@ const hayDiscrepancia = colectivo.claves.some(d => {
                       type="text"
                       inputMode="numeric"
                       pattern="[0-9]*"
-                      min={0}
-                      value={cantidades[d.id_medicamento] ?? ""}
+                      value={piezasEsperadas[d.id_medicamento] ?? ""}
                       onChange={(e) => {
                         const val = e.target.value.replace(/[^0-9]/g, "");
-                        handleCantidadChange(d.id_medicamento, val);
+                        handlePiezasEsperadasChange(d.id_medicamento, val);
                       }}
                       className="w-full border rounded p-1"
                     />
@@ -130,10 +130,11 @@ const hayDiscrepancia = colectivo.claves.some(d => {
                       type="text"
                       inputMode="numeric"
                       pattern="[0-9]*"
-                      value={piezasEsperadas[d.id_medicamento] ?? ""}
+                      min={0}
+                      value={cantidades[d.id_medicamento] ?? ""}
                       onChange={(e) => {
                         const val = e.target.value.replace(/[^0-9]/g, "");
-                        handlePiezasEsperadasChange(d.id_medicamento, val);
+                        handleCantidadChange(d.id_medicamento, val);
                       }}
                       className="w-full border rounded p-1"
                     />

@@ -98,7 +98,6 @@ export default function BuscadorItems({ itemType, onSelect, disabled }: Buscador
 
   return (
     <div ref={containerRef} className="relative mb-4 w-full z-50">
-      <h1>SE RENDERIZA BUSCADOR items</h1>
       <input
         disabled={disabled}
         placeholder={disabled ? "Selecciona un tipo primero..." : placeholder}

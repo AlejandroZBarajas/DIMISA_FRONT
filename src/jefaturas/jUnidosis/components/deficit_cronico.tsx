@@ -28,6 +28,7 @@ export default function DeficitCronico() {
     setEstado("loading")
     try {
       const res = await getDeficitCronico(idCendis, anio)
+      console.log(res)
       setData(res)
       setEstado("idle")
     } catch {
@@ -40,7 +41,7 @@ export default function DeficitCronico() {
       Ranking:      i + 1,
       Clave:        d.clave,
       Descripción:  d.descripcion,
-      Solicitado:   d.cantidad_solicitada,
+      Solicitado:   d.piezas_esperadas,
       Recibido:     d.cantidad_recibida,
       Déficit:      d.deficit,
       Estatus:      d.estatus,
@@ -110,7 +111,7 @@ export default function DeficitCronico() {
             </thead>
             <tbody className="divide-y divide-gray-100">
               {data.map((d, i) => {
-                const pct = Math.round((d.cantidad_recibida / d.cantidad_solicitada) * 100)
+                const pct = Math.round((d.cantidad_recibida / d.piezas_esperadas) * 100)
                 return (
                   <tr key={d.id_medicamento} className="hover:bg-gray-50">
                     <td className="px-4 py-2 text-gray-400 tabular-nums">{i + 1}</td>
