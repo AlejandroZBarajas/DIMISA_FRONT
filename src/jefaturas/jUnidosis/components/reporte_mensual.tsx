@@ -56,7 +56,7 @@ export default function ReporteMensual() {
     const filas = data.detalles.map(d => ({
       Clave:        d.clave,
       Descripción:  d.descripcion,
-      Solicitado:   d.cantidad_solicitada,
+      Solicitado:   d.piezas_esperadas,
       Recibido:     d.cantidad_recibida,
       Déficit:      d.deficit,
       Estatus:      d.estatus,
@@ -148,8 +148,8 @@ export default function ReporteMensual() {
                   <tr>
                     <th className="px-4 py-3">Clave</th>
                     <th className="px-4 py-3">Descripción</th>
-                    <th className="px-4 py-3">Solicitado</th>
-                    <th className="px-4 py-3">Recibido</th>
+                    <th className="px-4 py-3">Total solicitado</th>
+                    <th className="px-4 py-3">Piezas recibidas</th>
                     <th className="px-4 py-3">Déficit</th>
                     <th className="px-4 py-3">Estatus</th>
                   </tr>
@@ -159,7 +159,7 @@ export default function ReporteMensual() {
                     <tr key={d.id_medicamento} className="hover:bg-gray-50">
                       <td className="px-4 py-2 font-mono text-gray-500 whitespace-nowrap">{d.clave}</td>
                       <td className="px-4 py-2 text-gray-700 max-w-xs truncate">{d.descripcion}</td>
-                      <td className="px-4 py-2 tabular-nums">{d.cantidad_solicitada}</td>
+                      <td className="px-4 py-2 tabular-nums">{d.piezas_esperadas}</td>
                       <td className="px-4 py-2 tabular-nums">{d.cantidad_recibida}</td>
                       <td className="px-4 py-2 tabular-nums font-medium text-red-500">{d.deficit}</td>
                       <td className="px-4 py-2">

@@ -27,7 +27,7 @@ export const getDeficitCronico = async (
     body: JSON.stringify({ id_cendis, anio }),
   })
   if (!res.ok) throw new Error("Error al obtener déficit crónico")
-  return res.json()
+  return res.json().then((data) => data ?? [])
 }
 
 export const getComparativoCendis = async (
@@ -40,5 +40,5 @@ export const getComparativoCendis = async (
     body: JSON.stringify({ mes, anio }),
   })
   if (!res.ok) throw new Error("Error al obtener comparativo")
-  return res.json()
+  return res.json().then((data) => data ?? [])
 }
