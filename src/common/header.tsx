@@ -6,6 +6,7 @@ export default function Header(){
     const {auth, logout} = useAuth()
 
     const rol = auth.user?.rol
+    const name = auth.user?.nombre_usuario
     const navigate =useNavigate()
 
     function byebye(){
@@ -24,10 +25,14 @@ export default function Header(){
             </div> 
 
 
-            <div className="w-3/12 flex justify-end">
+            <div className="w-3/12 flex justify-end flex-col items-end">
             {
                 rol!==undefined &&(
-
+                    <h4 className='text-white p-4'>Bienvenido, {name}</h4>
+                )
+            }
+            {
+                rol!==undefined &&( 
                     <h4 className='text-white p-4' onClick={byebye}>Cerrar sesión</h4>
                 )
             }
