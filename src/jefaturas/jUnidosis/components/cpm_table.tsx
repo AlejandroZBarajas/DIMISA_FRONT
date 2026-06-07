@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { getCpm } from "../../../services/cpm_service"
 import type { CpmEntity, CpmDetalle } from "../../../entities/cpm_entity"
 
@@ -45,16 +45,64 @@ function TablaDetalle({ detalles, nombresMes }: { detalles: CpmDetalle[], nombre
   )
 }
 
+function SeccionColapsable({ titulo, children }: { titulo: string, children: React.ReactNode }) {
+  const [abierto, setAbierto] = useState(true)
+
+  return (
+    <section>
+      <button
+        onClick={() => setAbierto(!abierto)}
+        className="flex items-center gap-2 w-full text-left mb-2"
+      >
+        <span className="text-sm font-semibold text-gray-700 uppercase tracking-wide">
+          {titulo}
+        </span>
+        <svg
+          className={`w-4 h-4 text-gray-500 transition-transform duration-200 ${abierto ? "rotate-180" : "rotate-0"}`}
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+        </svg>
+      </button>
+
+      <div className={`transition-all duration-300 overflow-hidden ${abierto ? "max-h-screen opacity-100" : "max-h-0 opacity-0"}`}>
+        {children}
+      </div>
+    </section>
+  )
+}
+
 function CpmTable() {
   const [data, setData] = useState<CpmEntity | null>(null)
   const [estado, setEstado] = useState<Estado>("idle")
+  const [busqueda, setBusqueda] = useState("")
+  
+  const medicamentosFiltrados = useMemo(() => {
+  const q = busqueda.toLowerCase().trim()
+  if (!q) return data?.medicamentos ?? []
+  return (data?.medicamentos ?? []).filter(
+    (d) => d.clave.toLowerCase().includes(q) || d.descripcion.toLowerCase().includes(q)
+  )
+}, [data, busqueda])
 
+const materialFiltrado = useMemo(() => {
+  const q = busqueda.toLowerCase().trim()
+  if (!q) return data?.material ?? []
+  return (data?.material ?? []).filter(
+    (d) => d.clave.toLowerCase().includes(q) || d.descripcion.toLowerCase().includes(q)
+  )
+}, [data, busqueda])
+  
   useEffect(() => {
     setEstado("loading")
     getCpm()
       .then((res) => { setData(res); setEstado("success") })
       .catch(() => setEstado("error"))
+
   }, [])
+      console.log(data)
 
   if (estado === "loading")
     return <p className="mt-4 text-sm text-gray-500 animate-pulse">Cargando CPM…</p>
@@ -70,22 +118,24 @@ function CpmTable() {
 
   return (
     <div className="mt-4 space-y-8">
-      {data.medicamentos.length > 0 && (
-        <section>
-          <h2 className="text-sm font-semibold text-gray-700 uppercase tracking-wide mb-2">
-            Medicamentos
-          </h2>
-          <TablaDetalle detalles={data.medicamentos} nombresMes={nombresMed} />
-        </section>
+      <input
+        type="search"
+        placeholder="Buscar por clave o descripción…"
+        value={busqueda}
+        onChange={(e) => setBusqueda(e.target.value)}
+        className="w-full max-w-sm px-3 py-2 text-sm border border-gray-300 rounded-lg
+                  focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+      {medicamentosFiltrados.length > 0 && (
+        <SeccionColapsable titulo="Medicamentos">
+          <TablaDetalle detalles={medicamentosFiltrados} nombresMes={nombresMed} />
+        </SeccionColapsable>
       )}
 
-      {data.material.length > 0 && (
-        <section>
-          <h2 className="text-sm font-semibold text-gray-700 uppercase tracking-wide mb-2">
-            Material de Curación
-          </h2>
-          <TablaDetalle detalles={data.material} nombresMes={nombresMat} />
-        </section>
+      {materialFiltrado.length > 0 && (
+        <SeccionColapsable titulo="Material de Curación">
+          <TablaDetalle detalles={materialFiltrado} nombresMes={nombresMat} />
+        </SeccionColapsable>
       )}
     </div>
   )

@@ -25,7 +25,7 @@ export default function ColectivosPorPeriodo() {
 
   return (
     <div className="p-6 max-w-md mx-auto">
-      <h2 className="text-xl font-semibold mb-4">Colectivos por Periodo</h2>
+      <h2 className="text-xl font-semibold mb-4">Cantidad de Colectivos por Fechas</h2>
 
       <div className="flex flex-col gap-4">
         <div>
