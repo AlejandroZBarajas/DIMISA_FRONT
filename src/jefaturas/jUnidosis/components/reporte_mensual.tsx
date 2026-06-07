@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import {useMemo, useState, useEffect } from "react"
 import { getReporteMensual } from "../../../services/reportes_service"
 import { getAllCendis } from "../../../services/cendis_service"
 import type EntradaColectivoReporte from "../../../entities/reportes_entities"
@@ -29,6 +29,13 @@ export default function ReporteMensual() {
   const [anio,     setAnio]    = useState(anioActual)
   const [data,     setData]    = useState<EntradaColectivoReporte | null>(null)
   const [estado,   setEstado]  = useState<"idle"|"loading"|"error">("idle")
+
+  const [ordenEstatus, setOrdenEstatus] = useState<string | null>(null)
+  const detallesOrdenados = useMemo(() => {
+    if (!data || !ordenEstatus) return data?.detalles ?? []
+    const prioridad: Record<string, number> = { "No surtido": 0, "Parcial": 1, "Completo": 2 }
+    return [...data.detalles].sort((a, b) => prioridad[a.estatus] - prioridad[b.estatus])
+}, [data, ordenEstatus])
 
   const { exportar } = useExcelExport()
 
@@ -151,11 +158,16 @@ export default function ReporteMensual() {
                     <th className="px-4 py-3">Total solicitado</th>
                     <th className="px-4 py-3">Piezas recibidas</th>
                     <th className="px-4 py-3">Déficit</th>
-                    <th className="px-4 py-3">Estatus</th>
+                    <th
+                      className="px-4 py-3 cursor-pointer select-none hover:text-gray-700"
+                      onClick={() => setOrdenEstatus(prev => prev ? null : "asc")}
+                    >
+                      Estatus {ordenEstatus ? "↑" : "⇅"}
+                    </th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-100">
-                  {data.detalles.map(d => (
+                  {detallesOrdenados.map(d => (
                     <tr key={d.id_medicamento} className="hover:bg-gray-50">
                       <td className="px-4 py-2 font-mono text-gray-500 whitespace-nowrap">{d.clave}</td>
                       <td className="px-4 py-2 text-gray-700 max-w-xs truncate">{d.descripcion}</td>
