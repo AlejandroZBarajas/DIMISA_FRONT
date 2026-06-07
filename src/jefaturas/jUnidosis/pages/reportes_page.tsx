@@ -1,11 +1,12 @@
 import { useState } from "react"
+import ColectivosPorPeriodo from "../components/colectivos_por_periodo"
 import ReporteMensual from "../components/reporte_mensual"
 import DeficitCronico from "../components/deficit_cronico"
 import ComparativoCendis from "../components/reporte_comparativo"
 import ReportesSubheader from "../components/reportes_subheader"
 import Header from "../../../common/header"
 
-const TABS = ["Reporte mensual", "Déficit crónico", "Comparativo cendis"] as const
+const TABS = ["Reporte mensual", "Déficit crónico", "Comparativo cendis", "Cantidad de colectivos"] as const
 type Tab = typeof TABS[number]
 
 export default function ReportesPage() {
@@ -35,6 +36,7 @@ export default function ReportesPage() {
         {tab === "Reporte mensual"    && <ReporteMensual />}
         {tab === "Déficit crónico"    && <DeficitCronico />}
         {tab === "Comparativo cendis" && <ComparativoCendis />}
+        {tab === "Cantidad de colectivos" && <ColectivosPorPeriodo />}
 
       </div>
     </div>
