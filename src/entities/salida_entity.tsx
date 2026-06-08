@@ -7,4 +7,6 @@ export default interface SalidaEntity {
     tipo_id : number
     fecha: string; 
     claves: SalidaDetalleEntity[]
+    editable: number
+    pendiente: number
 }

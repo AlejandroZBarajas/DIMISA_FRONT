@@ -90,7 +90,9 @@ export default function SalidasTipo({ area, cendis, tipo, id_tipo }: Props) {
         id_usuario,
         tipo_id: id_tipo!,
         fecha: new Date().toISOString().split('T')[0],
-        claves
+        claves,
+        editable: 1,
+        pendiente: 1,
       };
 
 
@@ -123,7 +125,11 @@ export default function SalidasTipo({ area, cendis, tipo, id_tipo }: Props) {
 
       PrintColSal(html);
 
-      await cerrarSalida(idSalidaCreada);
+    console.log("antes de cerrarSalida, id:", idSalidaCreada)
+    await cerrarSalida(idSalidaCreada);
+    console.log("después de cerrarSalida")
+
+      console.log("cerrarSalida completado") 
 
       setLista([]);
       setIsExpanded(false);
