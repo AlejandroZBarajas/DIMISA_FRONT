@@ -5,12 +5,11 @@ export function PrintColSal(html: string): void {
     return;
   }
 
-  ventana.onload = () => {
-    setTimeout(() => {
-      ventana.print();
-    }, 200);
-  };
-
   ventana.document.write(html);
   ventana.document.close();
+
+  setTimeout(() => {
+    ventana.focus();
+    ventana.print();
+  }, 1000);
 }
