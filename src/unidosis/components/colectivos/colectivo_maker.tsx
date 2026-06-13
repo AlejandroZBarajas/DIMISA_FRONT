@@ -39,25 +39,38 @@ export default function ColectivoMaker({colectivosExistentes, onColectivoCreado}
     setSelected(item);
   };
 
-  const handleAdd = () => {
-    if (!selected || !tipoSeleccionado) return;
-    if (cantidad <= 0) return alert("La cantidad debe ser mayor a 0");
+ const handleAdd = () => {
+  if (!selected || !tipoSeleccionado) return;
+  if (cantidad <= 0) return alert("La cantidad debe ser mayor a 0");
 
-    const nuevoItem = {
-      id_medicamento: Number(selected.id_medicamento),
-      clave: selected.clave_med,
-      descripcion: selected.descripcion,
-      cantidad,
-    };
-
-    setColectivosPorTipo((prev) => ({
-      ...prev,
-      [tipoSeleccionado]: [...prev[tipoSeleccionado], nuevoItem],
-    }));
-
-    setSelected(null);
-    setCantidad(1);
+  const nuevoItem = {
+    id_medicamento: Number(selected.id_medicamento),
+    clave: selected.clave_med,
+    descripcion: selected.descripcion,
+    cantidad,
   };
+
+  setColectivosPorTipo((prev) => {
+    const listaActual = prev[tipoSeleccionado];
+
+    const yaExiste = listaActual.some(
+      (item) => item.id_medicamento === nuevoItem.id_medicamento
+    );
+
+    if (yaExiste) {
+      alert("Este medicamento ya fue agregado");
+      return prev;
+    }
+
+    return {
+      ...prev,
+      [tipoSeleccionado]: [nuevoItem, ...listaActual],
+    };
+  });
+
+  setSelected(null);
+  setCantidad(1);
+};
 
   const handleCantidadChange = (tipo_id: number, index: number, nuevaCantidad: number) => {
     setColectivosPorTipo((prev) => {
@@ -171,7 +184,7 @@ export default function ColectivoMaker({colectivosExistentes, onColectivoCreado}
 
           return (
             <div key={tipo_id} className="border rounded-lg p-4 bg-gray-50">
-              <h3 className="font-semibold mb-3">{tipoNombres[tipo_id]}</h3>
+              <h3 className="font-semibold mb-3">Colectivo de : {tipoNombres[tipo_id]}</h3>
               
               <table className="w-full border-collapse border border-gray-300 text-sm">
                 <thead className="bg-gray-100">
